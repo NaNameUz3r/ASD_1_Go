@@ -183,6 +183,7 @@ func TestDeleteOne(t *testing.T){
 
 	// Delete some in the middle [3, 4, 5, 6]
 	testList.Delete(4, false)
+
 	if testList.head.next.value != 5 {
 		fmt.Printf("Incorrect head next node value")
 		t.Error()
@@ -246,8 +247,10 @@ func TestDeleteAllSameHeadTail(t *testing.T) {
 	testList.AddInTail(node4)
 	testList.AddInTail(node5)
 	testList.AddInTail(node6)
+
 	// Test delete same consecutive in head and tail
 	testList.Delete(6, true)
+
 	if testList.head.value != 2 {
 		fmt.Printf("Incorrect tail value")
 		t.Error()
@@ -273,6 +276,7 @@ func TestDeleteAllSame(t *testing.T) {
 	testListSameVals.AddInTail(node3)
 
 	testListSameVals.Delete(1, true)
+
 	if testListSameVals.tail != nil {
 		fmt.Printf("List tail is not <nil")
 		t.Error()
@@ -287,6 +291,7 @@ func TestDeleteAllSame(t *testing.T) {
 func TestDeleteAllSameMiddle(t *testing.T) {
 	// Test Delete of list of same values
 	testList := LinkedList{}
+
 	node1 := Node{nil, 1}
 	node2 := Node{nil, 2}
 	node3 := Node{nil, 2}
@@ -300,6 +305,7 @@ func TestDeleteAllSameMiddle(t *testing.T) {
 	testList.AddInTail(node5)
 	testList.AddInTail(node6)
 	// Test delete same consecutive in list middle
+	testList.Delete(2, true)
 
 }
 
