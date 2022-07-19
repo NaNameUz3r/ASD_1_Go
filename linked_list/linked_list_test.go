@@ -342,3 +342,25 @@ func TestClean(t *testing.T) {
 		t.Error()
 	}
 }
+
+func TestInsert(t *testing.T) {
+	testList := LinkedList{}
+	node1 := Node{nil, 1}
+	node2 := Node{nil, 2}
+	node3 := Node{nil, 3}
+
+	fmt.Println("node1 value =", node1, "| head pointer ", &testList.head)
+	fmt.Printf("%p node1 pointer \n", &node1)
+	testList.AddInTail(node1)
+	fmt.Println("node1 value =", node1, "| head pointer ", &testList.head)
+	fmt.Printf("%p node1 pointer \n", &node1)
+	testList.AddInTail(node2)
+	fmt.Println("node1 value =", node1, "| head pointer ", &testList.head)
+	testList.AddInTail(node3)
+	fmt.Println("node1 value =", node1, "| head pointer ", &testList.head)
+
+	fmt.Println(&node1 == testList.head)
+	fmt.Println(testList.PrintList())
+	fmt.Println(reflect.DeepEqual(node1, &testList.head) == true, "--- deep equal?")
+	fmt.Println(&node1 == testList.head, "--- simple compare")
+}

@@ -122,7 +122,54 @@ func (l *LinkedList) Delete(n int, all bool) {
 }
 
 func (l *LinkedList) Insert(after *Node, add Node) {
+	current_node := l.head
+	for {
+		if reflect.DeepEqual(current_node, after) == true {
+			fmt.Println("Jesus Christ!")
+			break
+		}
+		fmt.Println("No fucking way")
+		break
+	}
+	// seek_node, finderr := l.Find(after.value)
+	// if reflect.DeepEqual(seek_node, l.head) == true {
+	// 		add.next = l.head.next
+	// 		*l.head.next = add
+	// } else if reflect.DeepEqual(seek_node, l.tail) == true {
+	// 	l.AddInTail(add)
+	// } else if finderr == nil {
+	// 	add.next = seek_node.next
+	// 	*seek_node.next = add
+	// }
 
+	// current_node := l.head
+	// for {
+	// 	if current_node == nil {
+	// 		break
+	// 	}
+
+	// 	if reflect.DeepEqual(current_node, l.head) == true {
+	// 		if reflect.DeepEqual(l.head, after) == true {
+	// 			add.next = l.head.next
+	// 			*l.head.next = add
+	// 			break
+	// 		}
+	// 	}
+
+	// 	if reflect.DeepEqual(current_node, l.tail) == true {
+	// 		if reflect.DeepEqual(l.tail, after) {
+	// 			l.AddInTail(add)
+	// 		}
+	// 	}
+
+	// 	if reflect.DeepEqual(current_node.next, after) {
+	// 		add.next = current_node.next.next
+	// 		*current_node.next = add
+	// 		break
+	// 	}
+
+	// 	current_node = current_node.next
+	// }
 }
 
 func (l *LinkedList) InsertFirst(first Node) {
@@ -138,20 +185,16 @@ func (l *LinkedList) Clean() {
 
 func main() {
 	testList := LinkedList{}
-	node1 := Node{nil, 2}
-	node2 := Node{nil, 1}
-	node3 := Node{nil, 2}
-	node4 := Node{nil, 1}
-	node5 := Node{nil, 2}
-	node6 := Node{nil, 2}
+	node1 := Node{nil, 1}
+	node2 := Node{nil, 2}
+	node3 := Node{nil, 3}
+
+	fmt.Println(node1, testList.head)
 	testList.AddInTail(node1)
+	fmt.Println(node1, testList.head)
 	testList.AddInTail(node2)
+	fmt.Println(&node1, testList.head)
 	testList.AddInTail(node3)
-	testList.AddInTail(node4)
-	testList.AddInTail(node5)
-	testList.AddInTail(node6)
-	// Test delete same consecutive in list middle
-	fmt.Println(testList.PrintList())
-	testList.Delete(1, true)
-	fmt.Println(testList.PrintList())
+
+	testList.Insert(&node1, Node{nil, 777})
 }
