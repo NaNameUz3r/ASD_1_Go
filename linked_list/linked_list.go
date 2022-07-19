@@ -122,15 +122,6 @@ func (l *LinkedList) Delete(n int, all bool) {
 }
 
 func (l *LinkedList) Insert(after *Node, add Node) {
-	current_node := l.head
-	for {
-		if reflect.DeepEqual(current_node, after) == true {
-			fmt.Println("Jesus Christ!")
-			break
-		}
-		fmt.Println("No fucking way")
-		break
-	}
 	// seek_node, finderr := l.Find(after.value)
 	// if reflect.DeepEqual(seek_node, l.head) == true {
 	// 		add.next = l.head.next
@@ -183,18 +174,18 @@ func (l *LinkedList) Clean() {
 
 }
 
-func main() {
-	testList := LinkedList{}
-	node1 := Node{nil, 1}
-	node2 := Node{nil, 2}
-	node3 := Node{nil, 3}
+// func main() {
+// 	testList := LinkedList{}
+// 	node1 := Node{nil, 1}
+// 	node2 := Node{nil, 2}
+// 	node3 := Node{nil, 3}
 
-	fmt.Println(node1, testList.head)
-	testList.AddInTail(node1)
-	fmt.Println(node1, testList.head)
-	testList.AddInTail(node2)
-	fmt.Println(&node1, testList.head)
-	testList.AddInTail(node3)
+// 	fmt.Println(node1, testList.head)
+// 	testList.AddInTail(node1)
+// 	fmt.Println(node1, testList.head)
+// 	testList.AddInTail(node2)
+// 	fmt.Println(&node1, testList.head)
+// 	testList.AddInTail(node3)
 
-	testList.Insert(&node1, Node{nil, 777})
-}
+// 	testList.Insert(&node1, Node{nil, 777})
+// }
