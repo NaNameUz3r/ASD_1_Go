@@ -345,24 +345,33 @@ func TestClean(t *testing.T) {
 
 func TestInsert(t *testing.T) {
 	testList := LinkedList{}
-	// node1 := Node{nil, 1}
-	// node2 := Node{nil, 2}
-	// node3 := Node{nil, 3}
 
 	node1 := &Node{nil, 1}
 	node2 := &Node{nil, 2}
 	node3 := &Node{nil, 3}
-	fmt.Println(&node1, testList.head)
+	fmt.Println("адрес node 1:",&node1, "адрес головы списка:", &testList.head, "Еще ничего не добавили")
+	fmt.Println("содержимое node 1:",node1, "содержимое головы списка:", testList.head, "Еще ничего не добавили")
+	fmt.Println(reflect.DeepEqual(node1, &testList.head) == true, "--- deep equal?")
+
 	testList.AddInTail(*node1)
-	fmt.Println(&node1, &testList.head)
+	fmt.Println("Добавляем node1 в список")
+	fmt.Println("адрес node 1:", &node1, "адрес головы списка:", &testList.head)
+	fmt.Println("содержимое node 1:",node1, "содержимое головы списка:", testList.head)
+	fmt.Println(reflect.DeepEqual(node1, &testList.head) == true, "--- deep equal?")
+
+	fmt.Println("Добавляем node2 в список")
 	testList.AddInTail(*node2)
-	fmt.Println(&node1, &testList.head)
+	fmt.Println("адрес node 1:",&node1, "адрес головы списка:", &testList.head, "Еще ничего не добавили")
+	fmt.Println("содержимое node 1:",node1, "содержимое головы списка:", testList.head, "Еще ничего не добавили")
+	fmt.Println(reflect.DeepEqual(node1, &testList.head) == true, "--- deep equal?")
+
 	testList.AddInTail(*node3)
-	fmt.Println(&node1, &testList.head)
+	// fmt.Println(&node1, &testList.head)
 
+	fmt.Println("Поменяем node1 value с помощью: node1.value = 222")
 	node1.value = 222
-	fmt.Println(testList.PrintList())
-
+	fmt.Println("Значение узлов в списке: ",testList.PrintList())
+}
 
 	// fmt.Println("node1 value =", nodep1, "| head pointer ", &testList.head)
 	// fmt.Printf("%p node1 pointer \n", nodep1)
@@ -378,5 +387,3 @@ func TestInsert(t *testing.T) {
 	// fmt.Println(testList.PrintList())
 	// fmt.Println(reflect.DeepEqual(node1, &testList.head) == true, "--- deep equal?")
 	// fmt.Println(&node1 == testList.head, "--- simple compare")
-
-}
