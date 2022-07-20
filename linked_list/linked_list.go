@@ -1,10 +1,9 @@
 package main
 
 import (
-	// "os"
+	"os"
 	"reflect"
 	"errors"
-	"fmt"
 )
 
 type Node struct {
@@ -122,49 +121,22 @@ func (l *LinkedList) Delete(n int, all bool) {
 }
 
 func (l *LinkedList) Insert(after *Node, add Node) {
-	// seek_node, finderr := l.Find(after.value)
-	// if reflect.DeepEqual(seek_node, l.head) == true {
-	// 		add.next = l.head.next
-	// 		*l.head.next = add
-	// } else if reflect.DeepEqual(seek_node, l.tail) == true {
-	// 	l.AddInTail(add)
-	// } else if finderr == nil {
-	// 	add.next = seek_node.next
-	// 	*seek_node.next = add
-	// }
+	if reflect.DeepEqual(after, l.tail) == true {
+		l.AddInTail(add)
+	} else {
+		add.next = after.next
+		after.next = &add
+	}
 
-	// current_node := l.head
-	// for {
-	// 	if current_node == nil {
-	// 		break
-	// 	}
-
-	// 	if reflect.DeepEqual(current_node, l.head) == true {
-	// 		if reflect.DeepEqual(l.head, after) == true {
-	// 			add.next = l.head.next
-	// 			*l.head.next = add
-	// 			break
-	// 		}
-	// 	}
-
-	// 	if reflect.DeepEqual(current_node, l.tail) == true {
-	// 		if reflect.DeepEqual(l.tail, after) {
-	// 			l.AddInTail(add)
-	// 		}
-	// 	}
-
-	// 	if reflect.DeepEqual(current_node.next, after) {
-	// 		add.next = current_node.next.next
-	// 		*current_node.next = add
-	// 		break
-	// 	}
-
-	// 	current_node = current_node.next
-	// }
 }
 
 func (l *LinkedList) InsertFirst(first Node) {
-
+	if l.head == nil {
+		l.AddInTail(first)
+	} else {
+		first.next = l.head
+		l.head = &first
+	}
 }
 
 func (l *LinkedList) Clean() {
@@ -173,19 +145,3 @@ func (l *LinkedList) Clean() {
 	l = &LinkedList{}
 
 }
-
-// func main() {
-// 	testList := LinkedList{}
-// 	node1 := Node{nil, 1}
-// 	node2 := Node{nil, 2}
-// 	node3 := Node{nil, 3}
-
-// 	fmt.Println(node1, testList.head)
-// 	testList.AddInTail(node1)
-// 	fmt.Println(node1, testList.head)
-// 	testList.AddInTail(node2)
-// 	fmt.Println(&node1, testList.head)
-// 	testList.AddInTail(node3)
-
-// 	testList.Insert(&node1, Node{nil, 777})
-// }
