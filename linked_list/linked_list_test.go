@@ -337,53 +337,69 @@ func TestClean(t *testing.T) {
 		t.Error()
 	}
 
-	if testList.tail != nil {
-		fmt.Printf("List tail is not <nil")
-		t.Error()
-	}
 }
 
 func TestInsert(t *testing.T) {
 	testList := LinkedList{}
 
-	node1 := &Node{nil, 1}
-	node2 := &Node{nil, 2}
-	node3 := &Node{nil, 3}
-	fmt.Println("адрес node 1:",&node1, "адрес головы списка:", &testList.head, "Еще ничего не добавили")
-	fmt.Println("содержимое node 1:",node1, "содержимое головы списка:", testList.head, "Еще ничего не добавили")
-	fmt.Println(reflect.DeepEqual(node1, &testList.head) == true, "--- deep equal?")
+	node1 := Node{nil, 1}
+	node2 := Node{nil, 2}
+	node3 := Node{nil, 3}
+	nodeadd := Node{nil, 777}
+	nodeadd2 := Node{nil, 888}
+	nodeadd3 := Node{nil, 999}
+	testList.AddInTail(node1)
+	testList.AddInTail(node2)
+	testList.AddInTail(node3)
 
-	testList.AddInTail(*node1)
-	fmt.Println("Добавляем node1 в список")
-	fmt.Println("адрес node 1:", &node1, "адрес головы списка:", &testList.head)
-	fmt.Println("содержимое node 1:",node1, "содержимое головы списка:", testList.head)
-	fmt.Println(reflect.DeepEqual(node1, &testList.head) == true, "--- deep equal?")
+	testList.Insert(testList.head, nodeadd)
 
-	fmt.Println("Добавляем node2 в список")
-	testList.AddInTail(*node2)
-	fmt.Println("адрес node 1:",&node1, "адрес головы списка:", &testList.head, "Еще ничего не добавили")
-	fmt.Println("содержимое node 1:",node1, "содержимое головы списка:", testList.head, "Еще ничего не добавили")
-	fmt.Println(reflect.DeepEqual(node1, &testList.head) == true, "--- deep equal?")
+	if testList.head.next.value != 777 {
+		fmt.Printf("head next value wrong")
+		t.Error()
+	}
 
-	testList.AddInTail(*node3)
-	// fmt.Println(&node1, &testList.head)
+	testList.Insert(testList.tail, nodeadd2)
 
-	fmt.Println("Поменяем node1 value с помощью: node1.value = 222")
-	node1.value = 222
-	fmt.Println("Значение узлов в списке: ",testList.PrintList())
+	if testList.tail.value != 888 {
+		fmt.Printf("tail value wrong")
+		t.Error()
+	}
+
+	if testList.tail.next != nil {
+		fmt.Printf("List tail next node is not <nil")
+		t.Error()
+	}
+
+	testList.Insert(testList.head.next.next, nodeadd3)
+
+	if testList.head.next.next.next.value != 999 {
+		fmt.Printf("tail value wrong")
+		t.Error()
+	}
+
 }
 
-	// fmt.Println("node1 value =", nodep1, "| head pointer ", &testList.head)
-	// fmt.Printf("%p node1 pointer \n", nodep1)
-	// testList.AddInTail(*nodep1)
-	// fmt.Println("node1 value =", node1, "| head pointer ", &testList.head)
-	// fmt.Printf("%p node1 pointer \n", &node1)
-	// testList.AddInTail(*nodep2)
-	// fmt.Println("node1 value =", node1, "| head pointer ", &testList.head)
-	// testList.AddInTail(*nodep3)
-	// fmt.Println("node1 value =", node1, "| head pointer ", &testList.head)
+func TestInserFirst(t *testing.T) {
+	testList := LinkedList{}
 
-	// fmt.Println(&node1 == testList.head)
-	// fmt.Println(testList.PrintList())
-	// fmt.Println(reflect.DeepEqual(node1, &testList.head) == true, "--- deep equal?")
-	// fmt.Println(&node1 == testList.head, "--- simple compare")
+	node1 := Node{nil, 1}
+	node2 := Node{nil, 2}
+	node3 := Node{nil, 3}
+	nodeadd := Node{nil, 777}
+
+	testList.AddInTail(node1)
+	testList.AddInTail(node2)
+	testList.AddInTail(node3)
+
+	testList.InsertFirst(nodeadd)
+
+	if testList.head.value != 777 {
+		fmt.Printf("head value wrong")
+		t.Error()
+	}
+	if testList.head.next.value != 1 {
+		fmt.Printf("head value wrong")
+		t.Error()
+	}
+}
