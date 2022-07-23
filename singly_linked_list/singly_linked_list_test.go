@@ -1,14 +1,14 @@
-	package main
+package main
 
-	import (
-		"testing"
-		"fmt"
-		"reflect"
-	)
+import (
+	"fmt"
+	"reflect"
+	"testing"
+)
 
 // basic LinkedList creation
 
-func TestLinkedListCreate(t *testing.T){
+func TestLinkedListCreate(t *testing.T) {
 	testList := LinkedList{}
 
 	testList.AddInTail(Node{nil, 1})
@@ -43,7 +43,7 @@ func GotWantInt(got, want int) bool {
 	return true
 }
 
-func TestLLCount(t *testing.T){
+func TestLLCount(t *testing.T) {
 	testList := LinkedList{}
 
 	if GotWantInt(testList.Count(), 0) != true {
@@ -57,7 +57,7 @@ func TestLLCount(t *testing.T){
 	}
 }
 
-func TestFind(t *testing.T){
+func TestFind(t *testing.T) {
 	testList := LinkedList{}
 	node1 := Node{nil, 1}
 	node2 := Node{nil, 2}
@@ -100,7 +100,7 @@ func TestFind(t *testing.T){
 	}
 }
 
-func TestFindAll(t *testing.T){
+func TestFindAll(t *testing.T) {
 	testList := LinkedList{}
 	node1 := Node{nil, 1}
 	node2 := Node{nil, 1}
@@ -141,8 +141,7 @@ func TestFindAll(t *testing.T){
 	}
 }
 
-
-func TestDeleteOne(t *testing.T){
+func TestDeleteOne(t *testing.T) {
 	testList := LinkedList{}
 	node1 := Node{nil, 1}
 	node2 := Node{nil, 2}
