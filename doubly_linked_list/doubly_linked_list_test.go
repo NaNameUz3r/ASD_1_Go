@@ -330,7 +330,19 @@ func TestDeleteOneNode(t *testing.T) {
 
 	// Delete rest of nodes
 	testList.Delete(2, false)
+
 	testList.Delete(4, false)
+
+	if testList.head.prev != nil {
+		fmt.Printf("There is only one node in list, but head have prev pointer")
+		t.Error()
+	}
+
+	if testList.tail.prev != nil {
+		fmt.Printf("There is only one node in list, but tail have prev pointer")
+		t.Error()
+	}
+
 	// Last node delition is also implicit Clean method test
 	testList.Delete(5, false)
 
@@ -343,6 +355,8 @@ func TestDeleteOneNode(t *testing.T) {
 		fmt.Printf("List tail is not <nil")
 		t.Error()
 	}
+
+
 }
 
 func TestInsert(t *testing.T) {
@@ -437,8 +451,6 @@ func TestInserFirst(t *testing.T) {
 
 	testList.InsertFirst(nodeadd)
 
-	fmt.Println(testList.GetListVals())
-
 	if testList.head.value != 777 {
 		fmt.Printf("head value wrong")
 		t.Error()
@@ -453,3 +465,13 @@ func TestInserFirst(t *testing.T) {
 		t.Error()
 	}
 }
+
+
+// func TestDebugMyAss(t *testing.T) {
+// 	testList := LinkedList2{}
+// 	node1 := Node{nil, nil,  1}
+// 	testList.AddInTail(node1)
+
+// 	fmt.Println(testList.head.prev, testList.head.next, testList.head.value)
+// 	fmt.Println(testList.tail.prev, testList.tail.next, testList.tail.value)
+// }

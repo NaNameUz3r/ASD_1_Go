@@ -118,6 +118,7 @@ func (l *LinkedList2) Delete(n int, all bool) {
 						break
 					} else {
 						l.head = l.head.next
+						l.head.prev = nil
 						break
 					}
 				} else if reflect.DeepEqual(current_node, l.tail) == true {
