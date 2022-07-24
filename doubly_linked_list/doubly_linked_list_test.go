@@ -465,13 +465,3 @@ func TestInserFirst(t *testing.T) {
 		t.Error()
 	}
 }
-
-
-// func TestDebugMyAss(t *testing.T) {
-// 	testList := LinkedList2{}
-// 	node1 := Node{nil, nil,  1}
-// 	testList.AddInTail(node1)
-
-// 	fmt.Println(testList.head.prev, testList.head.next, testList.head.value)
-// 	fmt.Println(testList.tail.prev, testList.tail.next, testList.tail.value)
-// }
