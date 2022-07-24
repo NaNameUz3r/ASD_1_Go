@@ -16,14 +16,14 @@ type LinkedList struct {
 	tail *Node
 }
 
-func (l *LinkedList) AddInTail(item Node) {
+func (l *LinkedList) AddInTail(item *Node) {
 	if l.head == nil {
-		l.head = &item
+		l.head = item
 	} else {
-		l.tail.next = &item
+		l.tail.next = item
 	}
 
-	l.tail = &item
+	l.tail = item
 }
 
 func (l *LinkedList) PrintList() []int {
@@ -95,7 +95,7 @@ func (l *LinkedList) Delete(n int, all bool) {
 				break
 			}
 			if current_node.value != n {
-				purgedList.AddInTail(Node{nil, current_node.value})
+				purgedList.AddInTail(&Node{nil, current_node.value})
 			}
 			current_node = current_node.next
 		}
@@ -134,7 +134,7 @@ func (l *LinkedList) Delete(n int, all bool) {
 
 func (l *LinkedList) Insert(after *Node, add Node) {
 	if reflect.DeepEqual(after, l.tail) == true {
-		l.AddInTail(add)
+		l.AddInTail(&add)
 	} else {
 		add.next = after.next
 		after.next = &add
@@ -144,7 +144,7 @@ func (l *LinkedList) Insert(after *Node, add Node) {
 
 func (l *LinkedList) InsertFirst(first Node) {
 	if l.head == nil {
-		l.AddInTail(first)
+		l.AddInTail(&first)
 	} else {
 		first.next = l.head
 		l.head = &first

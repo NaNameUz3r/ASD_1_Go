@@ -6,14 +6,27 @@ import (
 	"testing"
 )
 
+func TestIdiot(t *testing.T) {
+	testList := LinkedList{}
+	var node1 Node = Node{nil, 1}
+	var node2 Node = Node{nil, 2}
+
+	testList.AddInTail(&node1)
+	testList.AddInTail(&node2)
+	node1.value = 222
+
+	fmt.Println(node1, testList.head)
+}
+
+
 // basic LinkedList creation
 
 func TestLinkedListCreate(t *testing.T) {
 	testList := LinkedList{}
 
-	testList.AddInTail(Node{nil, 1})
-	testList.AddInTail(Node{nil, 2})
-	testList.AddInTail(Node{nil, 3})
+	testList.AddInTail(&Node{nil, 1})
+	testList.AddInTail(&Node{nil, 2})
+	testList.AddInTail(&Node{nil, 3})
 
 	if testList.head.value != 1 {
 		t.Errorf("head value is incorrect, it is not 1 but %d", testList.head.value)
@@ -50,7 +63,7 @@ func TestLLCount(t *testing.T) {
 		t.Error()
 	}
 
-	testList.AddInTail(Node{nil, 123})
+	testList.AddInTail(&Node{nil, 123})
 
 	if GotWantInt(testList.Count(), 1) != true {
 		t.Error()
@@ -62,9 +75,9 @@ func TestFind(t *testing.T) {
 	node1 := Node{nil, 1}
 	node2 := Node{nil, 2}
 	node3 := Node{nil, 3}
-	testList.AddInTail(node1)
-	testList.AddInTail(node2)
-	testList.AddInTail(node3)
+	testList.AddInTail(&node1)
+	testList.AddInTail(&node2)
+	testList.AddInTail(&node3)
 
 	somenode, err := testList.Find(1)
 	if err != nil {
@@ -109,12 +122,12 @@ func TestFindAll(t *testing.T) {
 	node5 := Node{nil, 3}
 	node6 := Node{nil, 4}
 
-	testList.AddInTail(node1)
-	testList.AddInTail(node2)
-	testList.AddInTail(node3)
-	testList.AddInTail(node4)
-	testList.AddInTail(node5)
-	testList.AddInTail(node6)
+	testList.AddInTail(&node1)
+	testList.AddInTail(&node2)
+	testList.AddInTail(&node3)
+	testList.AddInTail(&node4)
+	testList.AddInTail(&node5)
+	testList.AddInTail(&node6)
 
 	someNodes := testList.FindAll(1)
 
@@ -129,9 +142,9 @@ func TestFindAll(t *testing.T) {
 	nodeY := Node{nil, 2}
 	nodeZ := Node{nil, 2}
 
-	testList2.AddInTail(nodeX)
-	testList2.AddInTail(nodeY)
-	testList2.AddInTail(nodeZ)
+	testList2.AddInTail(&nodeX)
+	testList2.AddInTail(&nodeY)
+	testList2.AddInTail(&nodeZ)
 
 	yetAnotherNodes := testList2.FindAll(2)
 	yetAnotherSlice := []Node{*testList2.head.next, *testList2.tail}
@@ -150,12 +163,12 @@ func TestDeleteOne(t *testing.T) {
 	node5 := Node{nil, 5}
 	node6 := Node{nil, 6}
 
-	testList.AddInTail(node1)
-	testList.AddInTail(node2)
-	testList.AddInTail(node3)
-	testList.AddInTail(node4)
-	testList.AddInTail(node5)
-	testList.AddInTail(node6)
+	testList.AddInTail(&node1)
+	testList.AddInTail(&node2)
+	testList.AddInTail(&node3)
+	testList.AddInTail(&node4)
+	testList.AddInTail(&node5)
+	testList.AddInTail(&node6)
 
 	// Delete Head [1, 2, 3, 4, 5, 6]
 	testList.Delete(1, false)
@@ -240,12 +253,12 @@ func TestDeleteAllSameHeadTail(t *testing.T) {
 	node4 := Node{nil, 2}
 	node5 := Node{nil, 1}
 	node6 := Node{nil, 6}
-	testList.AddInTail(node1)
-	testList.AddInTail(node2)
-	testList.AddInTail(node3)
-	testList.AddInTail(node4)
-	testList.AddInTail(node5)
-	testList.AddInTail(node6)
+	testList.AddInTail(&node1)
+	testList.AddInTail(&node2)
+	testList.AddInTail(&node3)
+	testList.AddInTail(&node4)
+	testList.AddInTail(&node5)
+	testList.AddInTail(&node6)
 
 	// Test delete same consecutive in head and tail
 	testList.Delete(6, true)
@@ -270,9 +283,9 @@ func TestDeleteAllSame(t *testing.T) {
 	node1 := Node{nil, 1}
 	node2 := Node{nil, 1}
 	node3 := Node{nil, 1}
-	testListSameVals.AddInTail(node1)
-	testListSameVals.AddInTail(node2)
-	testListSameVals.AddInTail(node3)
+	testListSameVals.AddInTail(&node1)
+	testListSameVals.AddInTail(&node2)
+	testListSameVals.AddInTail(&node3)
 
 	testListSameVals.Delete(1, true)
 
@@ -297,12 +310,12 @@ func TestDeleteAllSameMiddle(t *testing.T) {
 	node4 := Node{nil, 2}
 	node5 := Node{nil, 2}
 	node6 := Node{nil, 6}
-	testList.AddInTail(node1)
-	testList.AddInTail(node2)
-	testList.AddInTail(node3)
-	testList.AddInTail(node4)
-	testList.AddInTail(node5)
-	testList.AddInTail(node6)
+	testList.AddInTail(&node1)
+	testList.AddInTail(&node2)
+	testList.AddInTail(&node3)
+	testList.AddInTail(&node4)
+	testList.AddInTail(&node5)
+	testList.AddInTail(&node6)
 	// Test delete same consecutive in list middle
 	testList.Delete(2, true)
 
@@ -317,12 +330,12 @@ func TestClean(t *testing.T) {
 	node5 := Node{nil, 5}
 	node6 := Node{nil, 6}
 
-	testList.AddInTail(node1)
-	testList.AddInTail(node2)
-	testList.AddInTail(node3)
-	testList.AddInTail(node4)
-	testList.AddInTail(node5)
-	testList.AddInTail(node6)
+	testList.AddInTail(&node1)
+	testList.AddInTail(&node2)
+	testList.AddInTail(&node3)
+	testList.AddInTail(&node4)
+	testList.AddInTail(&node5)
+	testList.AddInTail(&node6)
 
 	testList.Clean()
 
@@ -347,9 +360,9 @@ func TestInsert(t *testing.T) {
 	nodeadd := Node{nil, 777}
 	nodeadd2 := Node{nil, 888}
 	nodeadd3 := Node{nil, 999}
-	testList.AddInTail(node1)
-	testList.AddInTail(node2)
-	testList.AddInTail(node3)
+	testList.AddInTail(&node1)
+	testList.AddInTail(&node2)
+	testList.AddInTail(&node3)
 
 	testList.Insert(testList.head, nodeadd)
 
@@ -387,9 +400,9 @@ func TestInserFirst(t *testing.T) {
 	node3 := Node{nil, 3}
 	nodeadd := Node{nil, 777}
 
-	testList.AddInTail(node1)
-	testList.AddInTail(node2)
-	testList.AddInTail(node3)
+	testList.AddInTail(&node1)
+	testList.AddInTail(&node2)
+	testList.AddInTail(&node3)
 
 	testList.InsertFirst(nodeadd)
 
