@@ -182,7 +182,7 @@ func TestDeleteAllSameHeadTail(t *testing.T) {
 	}
 
 	if testList.tail.next != nil {
-		fmt.Printf("List tail next node is not <nil")
+		fmt.Printf("List tail next node is not <nil>")
 		t.Error()
 	}
 }
@@ -200,12 +200,12 @@ func TestDeleteAllSame(t *testing.T) {
 	testListSameVals.Delete(1, true)
 
 	if testListSameVals.tail != nil {
-		fmt.Printf("List tail is not <nil")
+		fmt.Printf("List tail is not <nil>")
 		t.Error()
 	}
 
 	if testListSameVals.head != nil {
-		fmt.Printf("List tail is not <nil")
+		fmt.Printf("List tail is not <nil>")
 		t.Error()
 	}
 }

@@ -1,40 +1,52 @@
 package main
 
 import (
-	"os"
+	// "os"
 	"reflect"
 	"errors"
+	// "fmt"
 )
 type Node struct {
 	prev  *Node
 	next  *Node
 	value int
+	dummy bool
 }
 
-type LinkedList2 struct {
+type LinkedListDummy struct {
 	head *Node
 	tail *Node
 }
 
-func (l *LinkedList2) AddInTail(item Node) {
-	if l.head == nil {
-		l.head = &item
-		l.head.next = nil
-		l.head.prev = nil
-	} else {
-		l.tail.next = &item
-		item.prev = l.tail
-	}
+func NewList() *LinkedListDummy {
+	l := new(LinkedListDummy)
+	l.head = &Node{prev: nil, next: nil, value: -1, dummy: true}
+	l.tail = &Node{prev: nil, next: nil, value: -1, dummy: true}
+	l.head.next = l.tail
+	l.tail.prev = l.head
 
-	l.tail = &item
-	l.tail.next = nil
+	return l
 }
 
-func (l *LinkedList2) GetListVals() []int {
+func (l *LinkedListDummy) AddInTail(item Node) {
+	if l.head.next.dummy == true {
+		l.head.next = &item
+		l.tail.prev = &item
+		item.next = l.tail
+		item.prev = l.head
+	} else {
+		l.tail.prev.next = &item
+		item.prev = l.tail.prev
+		item.next = l.tail
+		l.tail.prev = &item
+	}
+}
+
+func (l *LinkedListDummy) GetListVals() []int {
 	var node_values []int
-	current_node := l.head
+	current_node := l.head.next
 	for {
-		if current_node == nil {
+		if current_node.dummy == true {
 			break
 		}
 		node_values = append(node_values, current_node.value)
@@ -44,11 +56,11 @@ func (l *LinkedList2) GetListVals() []int {
 
 }
 
-func (l *LinkedList2) Count() int {
+func (l *LinkedListDummy) Count() int {
 	count := 0
-	current_node := l.head
+	current_node := l.head.next
 	for {
-		if current_node == nil {
+		if current_node.dummy == true {
 			break
 		}
 		count++
@@ -58,13 +70,13 @@ func (l *LinkedList2) Count() int {
 }
 
 // error не nil, если узел не найден
-func (l *LinkedList2) Find(n int) (Node, error) {
-	if l.head == nil {
+func (l *LinkedListDummy) Find(n int) (Node, error) {
+	if l.head.next.dummy == true {
 		return Node{prev: nil, next: nil, value: -1}, nil
 	}
-	current_node := l.head
+	current_node := l.head.next
 	for {
-		if current_node == nil {
+		if current_node.dummy == true {
 			return Node{prev: nil, next: nil, value: -1}, errors.New("Node not found")
 		}
 		if current_node.value == n {
@@ -74,11 +86,11 @@ func (l *LinkedList2) Find(n int) (Node, error) {
 	}
 }
 
-func (l *LinkedList2) FindAll(n int) []Node {
+func (l *LinkedListDummy) FindAll(n int) []Node {
 	var nodes []Node
-	current_node := l.head
+	current_node := l.head.next
 	for {
-		if current_node == nil {
+		if current_node.dummy == true {
 			break
 		}
 		if current_node.value == n {
@@ -89,17 +101,17 @@ func (l *LinkedList2) FindAll(n int) []Node {
 	return nodes
 }
 
-func (l *LinkedList2) Delete(n int, all bool) {
-	current_node := l.head
+func (l *LinkedListDummy) Delete(n int, all bool) {
+	current_node := l.head.next
 	if all == true {
 		// Delete all nodes with argument value
-		purgedList := LinkedList2{}
+		purgedList := *NewList()
 		for {
-			if current_node == nil {
+			if current_node.dummy == true {
 				break
 			}
 			if current_node.value != n {
-				purgedList.AddInTail(Node{prev: nil, next: nil, value: current_node.value})
+				purgedList.AddInTail(Node{prev: nil, next: nil, value: current_node.value, dummy: false})
 			}
 			current_node = current_node.next
 		}
@@ -137,8 +149,8 @@ func (l *LinkedList2) Delete(n int, all bool) {
 	}
 }
 
-func (l *LinkedList2) Insert(after *Node, add Node) {
-	if reflect.DeepEqual(after, l.tail) == true {
+func (l *LinkedListDummy) Insert(after *Node, add Node) {
+	if reflect.DeepEqual(after, l.tail.prev) == true {
 		l.AddInTail(add)
 	} else {
 		add.next = after.next
@@ -148,19 +160,19 @@ func (l *LinkedList2) Insert(after *Node, add Node) {
 	}
 }
 
-func (l *LinkedList2) InsertFirst(first Node) {
-	if l.head == nil {
+func (l *LinkedListDummy) InsertFirst(first Node) {
+	if l.head.dummy == true && l.head.next.dummy == true {
 		l.AddInTail(first)
 	} else {
-		first.next = l.head
-		l.head.prev = &first
-		l.head = &first
+		first.next = l.head.next
+		l.head.next.prev = &first
+		l.head.next = &first
 	}
 }
 
-func (l *LinkedList2) Clean() {
-	l.head = nil
-	l.tail = nil
-	l = &LinkedList2{}
+func (l *LinkedListDummy) Clean() {
+	l.head.next = l.tail
+	newList := *NewList()
+	*l = newList
 
 }
