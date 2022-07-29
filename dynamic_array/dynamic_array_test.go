@@ -2,6 +2,7 @@ package main
 
 import (
         "testing"
+        "fmt"
 )
 
 func TestAppendAndReallocate(t *testing.T) {
@@ -87,14 +88,14 @@ func TestRestOfMethodsAndCapacityReallocation(t *testing.T) {
         testDynArr.Remove(0)
 
         if testDynArr.capacity != 16 {
-                t.Errorf("Wrong capacity value, should be 21, but %d", testDynArr.capacity)
+                t.Errorf("Wrong capacity value, should be 16, but %d", testDynArr.capacity)
         }
         if testDynArr.count != 10 {
-                t.Errorf("Wrong counter value, should be 15, but %d", testDynArr.count)
+                t.Errorf("Wrong counter value, should be 10, but %d", testDynArr.count)
         }
 
         if testDynArr.array[0] != 8 {
-                t.Errorf("Wrong index 0 item value, should be 2, but %d", testDynArr.array[0])
+                t.Errorf("Wrong index 0 item value, should be 8, but %d", testDynArr.array[0])
         }
         if testDynArr.array[testDynArr.count-1] != 999 {
                 t.Errorf("Wrong index 0 item value, should be 999, but %d", testDynArr.array[testDynArr.count-1])
@@ -147,4 +148,72 @@ func TestInsertEmpty(t *testing.T) {
         if testDynArr.array[7] != 7 {
                 t.Errorf("Wrong imp of Insert Method")
         }
+}
+
+func TestInsertChangeCapacity(t *testing.T) {
+        var testDynArr DynArray[int]
+
+        testDynArr.Init()
+
+        for i := 1; i <= 16; i++ {
+                testDynArr.Append(i)
+                if testDynArr.array[i-1] != i {
+                        t.Errorf("Wrong values of %d indexed element, shoul be %d", i-1, i)
+                }
+        }
+
+        testDynArr.Insert(22, 15)
+
+        if testDynArr.array[15] != 22 {
+                t.Errorf("Wrong imp of Insert Method")
+        }
+
+        if testDynArr.capacity != 32 {
+                t.Errorf("Wrong capacity value, should be 32, but %d", testDynArr.capacity)
+        }
+
+
+        var testDynArr2 DynArray[int]
+        testDynArr2.Init()
+
+        for i := 1; i <= 16; i++ {
+                testDynArr2.Append(i)
+                if testDynArr2.array[i-1] != i {
+                        t.Errorf("Wrong values of %d indexed element, shoul be %d", i-1, i)
+                }
+        }
+
+        testDynArr2.Insert(22,16)
+        if testDynArr2.array[16] != 22 {
+                t.Errorf("Wrong imp of Insert Method")
+        }
+
+        if testDynArr2.capacity != 32 {
+                t.Errorf("Wrong capacity value, should be 32, but %d", testDynArr2.capacity)
+        }
+
+
+        var testDynArr3 DynArray[int]
+        testDynArr3.Init()
+
+        for i := 1; i <= 16; i++ {
+                testDynArr3.Append(i)
+                if testDynArr3.array[i-1] != i {
+                        t.Errorf("Wrong values of %d indexed element, shoul be %d", i-1, i)
+                }
+        }
+
+
+        err := testDynArr3.Insert(22,5)
+
+        if testDynArr3.array[5] != 22 {
+                t.Errorf("Wrong imp of Insert Method")
+        }
+
+        if testDynArr3.capacity != 32 {
+                t.Errorf("Wrong capacity value, should be 32, but %d", testDynArr2.capacity)
+        }
+
+
+
 }
