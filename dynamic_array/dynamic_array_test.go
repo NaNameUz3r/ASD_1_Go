@@ -119,3 +119,32 @@ func TestRestOfMethodsAndCapacityReallocation(t *testing.T) {
         }
 
 }
+
+func TestInsertEmpty(t *testing.T) {
+        var testDynArr DynArray[int]
+
+        testDynArr.Init()
+        // testDynArr.Append(5)
+        err := testDynArr.Insert(20, 15)
+        if err != nil {
+                t.Errorf("Wrong insert in empty")
+        }
+
+        if testDynArr.array[testDynArr.capacity - 1] != 20 {
+                t.Errorf("Wrong value")
+        }
+        testDynArr.Insert(5, 0)
+        testDynArr.Insert(7, 7)
+
+        if testDynArr.array[0] != 5 {
+                t.Errorf("Wrong imp of Insert Method")
+        }
+
+        if testDynArr.array[15] != 20 {
+                t.Errorf("Wrong imp of Insert Method")
+        }
+
+        if testDynArr.array[7] != 7 {
+                t.Errorf("Wrong imp of Insert Method")
+        }
+}
