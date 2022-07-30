@@ -2,7 +2,6 @@ package main
 
 import (
         "testing"
-        "fmt"
 )
 
 func TestAppendAndReallocate(t *testing.T) {
@@ -204,7 +203,7 @@ func TestInsertChangeCapacity(t *testing.T) {
         }
 
 
-        err := testDynArr3.Insert(22,5)
+        testDynArr3.Insert(22,5)
 
         if testDynArr3.array[5] != 22 {
                 t.Errorf("Wrong imp of Insert Method")
