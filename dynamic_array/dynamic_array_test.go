@@ -2,6 +2,7 @@ package main
 
 import (
         "testing"
+        "fmt"
 )
 
 func TestAppendAndReallocate(t *testing.T) {
@@ -126,25 +127,20 @@ func TestInsertEmpty(t *testing.T) {
         testDynArr.Init()
         // testDynArr.Append(5)
         err := testDynArr.Insert(20, 15)
-        if err != nil {
+        if err == nil {
                 t.Errorf("Wrong insert in empty")
         }
 
-        if testDynArr.array[testDynArr.capacity - 1] != 20 {
-                t.Errorf("Wrong value")
-        }
         testDynArr.Insert(5, 0)
-        testDynArr.Insert(7, 7)
+        testDynArr.Insert(7, 1)
+
+        fmt.Println(testDynArr)
 
         if testDynArr.array[0] != 5 {
                 t.Errorf("Wrong imp of Insert Method")
         }
 
-        if testDynArr.array[15] != 20 {
-                t.Errorf("Wrong imp of Insert Method")
-        }
-
-        if testDynArr.array[7] != 7 {
+        if testDynArr.array[1] != 7 {
                 t.Errorf("Wrong imp of Insert Method")
         }
 }
@@ -212,7 +208,6 @@ func TestInsertChangeCapacity(t *testing.T) {
         if testDynArr3.capacity != 32 {
                 t.Errorf("Wrong capacity value, should be 32, but %d", testDynArr2.capacity)
         }
-
 
 
 }

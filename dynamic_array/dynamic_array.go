@@ -1,7 +1,7 @@
 package main
 
 import (
-        "os"
+        // "os"
         "fmt"
 )
 
@@ -25,17 +25,17 @@ func (da *DynArray[T]) MakeArray(sz int) {
 }
 
 func (da *DynArray[T]) Insert(itm T, index int) error {
-        if index > da.capacity || index < 0 {
+ 	if da.count == index {
+		da.Append(itm)
+		return nil
+	}
+
+        if index >= da.count || index < 0 {
 		return fmt.Errorf("bad index '%d'", index)
 	}
 
         if da.count == da.capacity {
 		da.MakeArray(2 * da.capacity)
-	}
-
-	if da.count == index {
-		da.Append(itm)
-		return nil
 	}
 
 	da.count++
