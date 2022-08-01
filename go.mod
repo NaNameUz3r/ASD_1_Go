@@ -1,3 +1,3 @@
-module github.com/NaNameUz3r/ADS_1_Go
+module ADS
 
 go 1.18

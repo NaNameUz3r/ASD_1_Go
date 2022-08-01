@@ -1,4 +1,4 @@
-package main
+package dummynode_linked_list
 
 import (
 	"fmt"
