@@ -9,7 +9,7 @@ import (
 type Node struct {
 	prev  *Node
 	next  *Node
-	value int
+	value interface{}
 	dummy bool
 }
 
@@ -20,8 +20,8 @@ type LinkedListDummy struct {
 
 func NewList() *LinkedListDummy {
 	l := new(LinkedListDummy)
-	l.head = &Node{prev: nil, next: nil, value: -1, dummy: true}
-	l.tail = &Node{prev: nil, next: nil, value: -1, dummy: true}
+	l.head = &Node{prev: nil, next: nil, value: nil, dummy: true}
+	l.tail = &Node{prev: nil, next: nil, value: nil, dummy: true}
 	l.head.next = l.tail
 	l.tail.prev = l.head
 
@@ -42,19 +42,19 @@ func (l *LinkedListDummy) AddInTail(item Node) {
 	}
 }
 
-func (l *LinkedListDummy) GetListVals() []int {
-	var node_values []int
-	current_node := l.head.next
-	for {
-		if current_node.dummy == true {
-			break
-		}
-		node_values = append(node_values, current_node.value)
-		current_node = current_node.next
-	}
-	return node_values
+// func (l *LinkedListDummy) GetListVals() []int {
+// 	var node_values []int
+// 	current_node := l.head.next
+// 	for {
+// 		if current_node.dummy == true {
+// 			break
+// 		}
+// 		node_values = append(node_values, current_node.value)
+// 		current_node = current_node.next
+// 	}
+// 	return node_values
 
-}
+// }
 
 func (l *LinkedListDummy) Count() int {
 	count := 0
