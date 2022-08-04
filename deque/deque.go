@@ -1,7 +1,7 @@
 package main
 
 import (
-	// "os"
+	"os"
 	"fmt"
 )
 
@@ -48,4 +48,30 @@ func (d *Deque[T]) RemoveTail() (T, error) {
 		err = fmt.Errorf("Removing tail from empty deque")
 	}
 	return result, err
+}
+
+func CheckPalindrome(s string) bool {
+	var paliDeque Deque[string]
+	isPalindrome := true
+	for _, char := range s {
+		stringedChar := string(char)
+		paliDeque.AddFront(stringedChar)
+	}
+
+	for {
+		if paliDeque.Size() > 1 {
+
+			headChar, _ := paliDeque.RemoveFront()
+			tailChar, _ := paliDeque.RemoveTail()
+
+			if headChar != tailChar {
+				isPalindrome = false
+				break
+			}
+		} else {
+			break
+		}
+	}
+
+	return isPalindrome
 }

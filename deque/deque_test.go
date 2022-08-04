@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	// "fmt"
 	"testing"
 )
 
@@ -75,4 +75,18 @@ func TestDequeMethods(t *testing.T) {
 		t.Errorf("Removing head or tail from empty deque not causes an error")
 	}
 
+}
+
+func TestCheckPalindrome(t *testing.T) {
+
+	firstStringCheck := CheckPalindrome("saippuakivikauppias")
+	secondStringCheck := CheckPalindrome("Iamnotapalindromeatall")
+
+	if firstStringCheck != true {
+		t.Errorf("Wrong palindrome checker, first string true palindrome")
+	}
+
+	if secondStringCheck != false {
+		t.Errorf("Wrong palindome checker, seconf string false palindrome")
+	}
 }
