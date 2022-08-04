@@ -11,11 +11,11 @@ func TestLinkedListCreateAndCount(t *testing.T) {
 	testList := NewList()
 
 
-	if testList.head.dummy != true {
-		t.Errorf("Head is not dummy")
+	if testList.Head.Dummy != true {
+		t.Errorf("Head is not Dummy")
 	}
-	if testList.tail.dummy != true {
-		t.Errorf("Tail is not dummy")
+	if testList.Tail.Dummy != true {
+		t.Errorf("Tail is not Dummy")
 	}
 
 
@@ -27,12 +27,12 @@ func TestLinkedListCreateAndCount(t *testing.T) {
 		t.Errorf("Count works wrong, there is 3 nodes, but Counted %d", testList.Count())
 	}
 
-	if testList.head.next.value != 1 {
-		t.Errorf("Head next value is wrong")
+	if testList.Head.Next.Value != 1 {
+		t.Errorf("Head Next Value is wrong")
 	}
 
-	if testList.tail.prev.value != 3 {
-		t.Errorf("Tail prev value is wrong")
+	if testList.Tail.Prev.Value != 3 {
+		t.Errorf("Tail Prev Value is wrong")
 	}
 
 }
@@ -52,7 +52,7 @@ func TestFind(t *testing.T) {
 		t.Error()
 	}
 
-	if reflect.DeepEqual(&somenode, testList.head.next) != true {
+	if reflect.DeepEqual(&somenode, testList.Head.Next) != true {
 		fmt.Printf("Nodes are not equal")
 		t.Error()
 	}
@@ -63,7 +63,7 @@ func TestFind(t *testing.T) {
 		t.Error()
 	}
 
-	if reflect.DeepEqual(&somenode2, testList.head.next.next) != true {
+	if reflect.DeepEqual(&somenode2, testList.Head.Next.Next) != true {
 		fmt.Printf("Nodes are not equal")
 		t.Error()
 	}
@@ -74,7 +74,7 @@ func TestFind(t *testing.T) {
 		t.Error()
 	}
 
-	if reflect.DeepEqual(&somenode3, testList.tail.prev) != true {
+	if reflect.DeepEqual(&somenode3, testList.Tail.Prev) != true {
 		fmt.Printf("Nodes are not equal")
 		t.Error()
 	}
@@ -98,7 +98,7 @@ func TestFindAll(t *testing.T) {
 
 	someNodes := testList.FindAll(1)
 
-	checkSlice := []Node{*testList.head.next, *testList.head.next.next, *testList.head.next.next.next}
+	checkSlice := []Node{*testList.Head.Next, *testList.Head.Next.Next, *testList.Head.Next.Next.Next}
 	if reflect.DeepEqual(someNodes, checkSlice) != true {
 		fmt.Printf("Nodes are not equal")
 		t.Error()
@@ -114,7 +114,7 @@ func TestFindAll(t *testing.T) {
 	testList2.AddInTail(*nodeZ)
 
 	yetAnotherNodes := testList2.FindAll(2)
-	yetAnotherSlice := []Node{*testList2.tail.prev.prev, *testList2.tail.prev}
+	yetAnotherSlice := []Node{*testList2.Tail.Prev.Prev, *testList2.Tail.Prev}
 	if reflect.DeepEqual(yetAnotherNodes, yetAnotherSlice) != true {
 		fmt.Printf("Nodes are not equal")
 		t.Error()
@@ -122,7 +122,7 @@ func TestFindAll(t *testing.T) {
 }
 
 func TestDeleteAllSameHeadTail(t *testing.T) {
-	// Test Delete of list of same values
+	// Test Delete of list of same Values
 	testList := NewList()
 	node1 := &Node{nil, nil, 6, false}
 	node2 := &Node{nil, nil, 6, false}
@@ -137,47 +137,47 @@ func TestDeleteAllSameHeadTail(t *testing.T) {
 	testList.AddInTail(*node5)
 	testList.AddInTail(*node6)
 
-	// Test delete same consecutive in head and tail
+	// Test delete same consecutive in Head and Tail
 	testList.Delete(6, true)
 
-	if testList.head.next.value != 2 {
-		fmt.Printf("Incorrect tail value")
+	if testList.Head.Next.Value != 2 {
+		fmt.Printf("Incorrect Tail Value")
 		t.Error()
 	}
 
-	if testList.head.dummy != true {
-		fmt.Printf("head is not dummy")
+	if testList.Head.Dummy != true {
+		fmt.Printf("Head is not Dummy")
 		t.Error()
 	}
 
-	if testList.head.next.value != 2 {
-		fmt.Printf("Incorrect head next.next node value")
+	if testList.Head.Next.Value != 2 {
+		fmt.Printf("Incorrect Head Next.Next node Value")
 		t.Error()
 	}
 
-	if testList.head.next.next.value != 2 {
-		fmt.Printf("Incorrect head next.next node value")
+	if testList.Head.Next.Next.Value != 2 {
+		fmt.Printf("Incorrect Head Next.Next node Value")
 		t.Error()
 	}
 
-	if testList.head.next.next.prev.value != 2 {
-		fmt.Printf("Incorrect head next.next node prev value")
+	if testList.Head.Next.Next.Prev.Value != 2 {
+		fmt.Printf("Incorrect Head Next.Next node Prev Value")
 		t.Error()
 	}
 
 
-	if testList.tail.dummy != true {
-		fmt.Printf("Tail is not dummy")
+	if testList.Tail.Dummy != true {
+		fmt.Printf("Tail is not Dummy")
 		t.Error()
 	}
 
-	if testList.tail.prev.value != 1 {
-		fmt.Printf("Incorrect tail prev node value")
+	if testList.Tail.Prev.Value != 1 {
+		fmt.Printf("Incorrect Tail Prev node Value")
 		t.Error()
 	}
 
-	if testList.tail.next != nil {
-		fmt.Printf("List tail next node is not <nil")
+	if testList.Tail.Next != nil {
+		fmt.Printf("List Tail Next node is not <nil")
 		t.Error()
 	}
 }
@@ -194,24 +194,24 @@ func TestDeleteAllSame(t *testing.T) {
 
 	testListSameVals.Delete(1, true)
 
-	if testListSameVals.tail.dummy != true {
-		fmt.Printf("List tail is not dummy")
+	if testListSameVals.Tail.Dummy != true {
+		fmt.Printf("List Tail is not Dummy")
 		t.Error()
 	}
 
-	if testListSameVals.head.dummy != true {
-		fmt.Printf("List tail is not dummy")
+	if testListSameVals.Head.Dummy != true {
+		fmt.Printf("List Tail is not Dummy")
 		t.Error()
 	}
 
-	if testListSameVals.head.next.dummy != true {
-		fmt.Printf("head next is not dummy")
+	if testListSameVals.Head.Next.Dummy != true {
+		fmt.Printf("Head Next is not Dummy")
 		t.Error()
 	}
 }
 
 func TestDeleteAllSameMiddle(t *testing.T) {
-	// Test Delete of list of same values
+	// Test Delete of list of same Values
 	testList := NewList()
 	node1 := &Node{nil, nil, 1, false}
 	node2 := &Node{nil, nil, 2, false}
@@ -229,23 +229,23 @@ func TestDeleteAllSameMiddle(t *testing.T) {
 	testList.Delete(2, true)
 
 
-	if testList.tail.prev.value != 6 {
-		fmt.Printf("Incorrect tail prev value")
+	if testList.Tail.Prev.Value != 6 {
+		fmt.Printf("Incorrect Tail Prev Value")
 		t.Error()
 	}
 
-	if testList.head.next.value != 1 {
-		fmt.Printf("Incorrect head next value")
+	if testList.Head.Next.Value != 1 {
+		fmt.Printf("Incorrect Head Next Value")
 		t.Error()
 	}
 
-	if reflect.DeepEqual(testList.tail.prev, testList.head.next.next) != true {
-		fmt.Printf("Tail prev is not head next")
+	if reflect.DeepEqual(testList.Tail.Prev, testList.Head.Next.Next) != true {
+		fmt.Printf("Tail Prev is not Head Next")
 		t.Error()
 	}
 
-	if reflect.DeepEqual(testList.head.next, testList.tail.prev.prev) != true {
-		fmt.Printf("Head next is not tail prev prev")
+	if reflect.DeepEqual(testList.Head.Next, testList.Tail.Prev.Prev) != true {
+		fmt.Printf("Head Next is not Tail Prev Prev")
 		t.Error()
 	}
 }
@@ -263,63 +263,63 @@ func TestInsert(t *testing.T) {
 	testList.AddInTail(node2)
 	testList.AddInTail(node3)
 
-	// insert after head next
-	testList.Insert(testList.head.next, nodeadd1)
+	// insert after Head Next
+	testList.Insert(testList.Head.Next, nodeadd1)
 
-	if testList.head.next.next.value != 777 {
-		fmt.Printf("head next value wrong")
+	if testList.Head.Next.Next.Value != 777 {
+		fmt.Printf("Head Next Value wrong")
 		t.Error()
 	}
 
-	if testList.head.next.value != 1 {
-		fmt.Printf("head next node value wrong")
+	if testList.Head.Next.Value != 1 {
+		fmt.Printf("Head Next node Value wrong")
 		t.Error()
 	}
 
-	if reflect.DeepEqual(testList.head.next.prev, testList.head) != true {
-		fmt.Printf("head hext node prev not equal dummyhead")
+	if reflect.DeepEqual(testList.Head.Next.Prev, testList.Head) != true {
+		fmt.Printf("Head hext node Prev not equal DummyHead")
 		t.Error()
 	}
 
-	// insert after actual tail
-	testList.Insert(testList.tail.prev, nodeadd2)
+	// insert after actual Tail
+	testList.Insert(testList.Tail.Prev, nodeadd2)
 
-	if testList.tail.prev.value != 888 {
-		fmt.Printf("tail value wrong")
+	if testList.Tail.Prev.Value != 888 {
+		fmt.Printf("Tail Value wrong")
 		t.Error()
 	}
 
-	if testList.tail.next != nil {
-		fmt.Printf("List tail next node is not <nil>")
+	if testList.Tail.Next != nil {
+		fmt.Printf("List Tail Next node is not <nil>")
 		t.Error()
 	}
 
-	if testList.tail.dummy != true {
-		fmt.Printf(" tail is not dummy")
+	if testList.Tail.Dummy != true {
+		fmt.Printf(" Tail is not Dummy")
 		t.Error()
 	}
 
 
 
-	if testList.tail.prev.value != 888 {
-		fmt.Printf("tail prev node value wrong")
+	if testList.Tail.Prev.Value != 888 {
+		fmt.Printf("Tail Prev node Value wrong")
 		t.Error()
 	}
 	// insert after third node
-	testList.Insert(testList.head.next.next.next, nodeadd3)
+	testList.Insert(testList.Head.Next.Next.Next, nodeadd3)
 
-	if testList.head.next.next.next.next.value != 999 {
-		fmt.Printf("wrong fourth node value")
+	if testList.Head.Next.Next.Next.Next.Value != 999 {
+		fmt.Printf("wrong fourth node Value")
 		t.Error()
 	}
 
-	if testList.head.next.next.next.next.next.value != 2 {
-		fmt.Printf("wrong fourth node next value")
+	if testList.Head.Next.Next.Next.Next.Next.Value != 2 {
+		fmt.Printf("wrong fourth node Next Value")
 		t.Error()
 	}
 
-	if testList.head.next.next.next.next.next.prev.value != 999 {
-		fmt.Printf("wrong fourth node prev value")
+	if testList.Head.Next.Next.Next.Next.Next.Prev.Value != 999 {
+		fmt.Printf("wrong fourth node Prev Value")
 		t.Error()
 	}
 }
@@ -338,17 +338,17 @@ func TestInserFirst(t *testing.T) {
 
 	testList.InsertFirst(nodeadd1)
 
-	if testList.head.next.value != 777 {
-		fmt.Printf("head value wrong")
+	if testList.Head.Next.Value != 777 {
+		fmt.Printf("Head Value wrong")
 		t.Error()
 	}
-	if testList.head.next.next.value != 1 {
-		fmt.Printf("head value wrong")
+	if testList.Head.Next.Next.Value != 1 {
+		fmt.Printf("Head Value wrong")
 		t.Error()
 	}
 
-	if testList.head.next.next.prev.value != 777 {
-		fmt.Printf("head next node prev value wrong")
+	if testList.Head.Next.Next.Prev.Value != 777 {
+		fmt.Printf("Head Next node Prev Value wrong")
 		t.Error()
 	}
 }
@@ -365,8 +365,8 @@ func TestClean(t *testing.T) {
 	testList.AddInTail(node3)
 
 	testList.Clean()
-	if testList.head.next.dummy != true {
-		fmt.Printf("head next node is not dummy")
+	if testList.Head.Next.Dummy != true {
+		fmt.Printf("Head Next node is not Dummy")
 		t.Error()
 	}
 }

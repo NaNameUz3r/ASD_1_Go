@@ -1,7 +1,7 @@
 package main
 
 import (
-	// "fmt"
+	"fmt"
 	"testing"
 )
 
@@ -64,6 +64,35 @@ func TestStackMethods(t *testing.T) {
 		if err4 == nil {
 			t.Errorf("Poping from empty stack not causing an error")
 		}
+
+
+}
+
+func TestBalanced(t *testing.T) {
+        string_1 := "(())()(())"     // True
+        string_2 := "(()((())()))"   // True
+        string_3 := "))(("           // False
+        string_4 := "((())"          // False
+        string_5 := "(()))"          // False
+
+
+		if isBalanced(string_1) != true {
+			t.Errorf("string 1 is balanced, but func return false")
+		}
+		if isBalanced(string_2) != true {
+			t.Errorf("string 2 is balanced, but func return false")
+		}
+		if isBalanced(string_3) != false {
+			t.Errorf("string 3 is not balanced, but func return true")
+		}
+		if isBalanced(string_4) != false {
+			t.Errorf("string 4 is not balanced, but func return true")
+		}
+		if isBalanced(string_5) != false {
+			t.Errorf("string 5 is not balanced, but func return true")
+		}
+
+
 
 
 }

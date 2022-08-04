@@ -3,48 +3,45 @@ package stackLL
 import (
 		// "os"
 		"fmt"
-		ll "ADS/dummynode_linked_list"
+		ll "ADS/dummy_linked_list"
 )
 
-type Stack[T any] struct {
-        stack func()
+type Stack = ll.LinkedListDummy
+
+func InitStack() Stack {
+        return *ll.NewList()
 }
 
-func InitStack() *Stack {
-	s := Stack{
-		stack: func() {ll.NewList()},
-	}
-
-}
-func (st *Stack[T]) Size() int {
-        return st.stack.Count()
+func Size(st Stack) int {
+        return st.Count()
 }
 
-func (st *Stack[T]) Peek() (T, error) {
-        var result T
+func Peek(st Stack) (interface{}, error) {
+        var result interface{}
         var err error
 
-        if st.Size() == 0 {
+        if Size(st) == 0 {
                 err = fmt.Errorf("Peeking from empty stack")
         } else {
-                result = st.stack.head
+                result = st.GetHeadValue()
         }
         return result, err
 }
 
-func (st *Stack) Pop() (T, error) {
-        var result T
+func Pop(st Stack) (interface{}, error) {
+        var result interface{}
         var err error
 
-        if st.Size() == 0 {
+        if Size(st) == 0 {
                 err = fmt.Errorf("Poping from empty stack")
         } else {
-                result = st.stack[len(st.stack) - 1]
-                st.stack = st.stack[:len(st.stack) - 1]
+                result = st.Head.Next.Value
+                st.DeleteHead()
         }
         return result, err
 }
 
-func (st *Stack) Push(itm T) {
-		st.stack = append(st.stack, itm)
+func Push(st Stack, value interface{}) {
+        n := ll.Node{Prev: nil, Next: nil, Value: value, Dummy: false}
+        st.InsertFirst(n)
 }

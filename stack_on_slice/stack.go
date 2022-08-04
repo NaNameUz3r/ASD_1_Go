@@ -1,7 +1,7 @@
 package main
 
 import (
-		"os"
+		// "os"
 		"fmt"
 )
 
@@ -42,4 +42,19 @@ func (st *Stack[T]) Pop() (T, error) {
 
 func (st *Stack[T]) Push(itm T) {
 		st.stack = append(st.stack, itm)
+}
+
+func isBalanced(checkstring string) bool {
+        var stack Stack[string]
+        for _, char := range checkstring {
+                peek, _ := stack.Peek()
+                stringedChar := string(char)
+                if stringedChar == ")" && peek == "(" {
+                        stack.Pop()
+                } else {
+                        stack.Push(stringedChar)
+                }
+        }
+
+        return stack.Size() == 0
 }
