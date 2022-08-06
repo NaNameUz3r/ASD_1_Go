@@ -33,18 +33,18 @@ func (l *OrderedList[T]) Count() int {
 }
 
 func (l *OrderedList[T]) GetListVals() []T {
-	var values []T
-	currentNode := l.head
+        var values []T
+        currentNode := l.head
 
-	for {
-		if currentNode == nil {
-			break
-		}
-		values = append(values, currentNode.value)
-		currentNode = currentNode.next
-	}
+        for {
+                if currentNode == nil {
+                        break
+                }
+                values = append(values, currentNode.value)
+                currentNode = currentNode.next
+        }
 
-	return values
+        return values
 }
 
 func (l *OrderedList[T]) Add(item *Node[T]) {
@@ -56,8 +56,7 @@ func (l *OrderedList[T]) Add(item *Node[T]) {
 
                 for {
                         if currentNode != nil {
-                                if (l._ascending == true && l.Compare(item.value, currentNode.value) <= 0) || (
-                                        l._ascending == false && l.Compare(item.value, currentNode.value) >= 0) {
+                                if (l._ascending == true && l.Compare(item.value, currentNode.value) <= 0) || (l._ascending == false && l.Compare(item.value, currentNode.value) >= 0) {
                                         if currentNode.prev == nil {
                                                 item.next = currentNode
                                                 currentNode.prev = item
@@ -85,30 +84,28 @@ func (l *OrderedList[T]) Add(item *Node[T]) {
 func (l *OrderedList[T]) Find(n T) (Node[T], error) {
         var err error
 
-		if l.head == nil {
-			err = fmt.Errorf("Empty list nothing to give you")
-	    	return Node[T]{value: n, next: nil, prev: nil}, err
-		}
+        if l.head == nil {
+                err = fmt.Errorf("Empty list nothing to give you")
+                return Node[T]{value: n, next: nil, prev: nil}, err
+        }
 
-		currentNode := l.head
-		for {
-			if currentNode == nil {
-				err = fmt.Errorf("Node with %T value is not found", n)
-				return Node[T]{value: n, next: nil, prev: nil}, err
+        currentNode := l.head
+        for {
+                if currentNode == nil {
+                        err = fmt.Errorf("Node with %T value is not found", n)
+                        return Node[T]{value: n, next: nil, prev: nil}, err
 
-			}
-			if (l._ascending == true && currentNode.value > n) || (
-				l._ascending == false && currentNode.value < n) {
-					err = fmt.Errorf("Node with %T value is not found", n)
-					return Node[T]{value: n, next: nil, prev: nil}, err
-				}
-			if currentNode.value == n {
-				return *currentNode, err
-			}
+                }
+                if (l._ascending == true && currentNode.value > n) || (l._ascending == false && currentNode.value < n) {
+                        err = fmt.Errorf("Node with %T value is not found", n)
+                        return Node[T]{value: n, next: nil, prev: nil}, err
+                }
+                if currentNode.value == n {
+                        return *currentNode, err
+                }
 
-
-			currentNode = currentNode.next
-		}
+                currentNode = currentNode.next
+        }
 }
 
 func (l *OrderedList[T]) Delete(n T) {
