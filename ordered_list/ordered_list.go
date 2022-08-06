@@ -57,7 +57,7 @@ func (l *OrderedList[T]) Add(item *Node[T]) {
                 for {
                         if currentNode != nil {
                                 if (l._ascending == true && l.Compare(item.value, currentNode.value) <= 0) || (
-									l._ascending == false && l.Compare(item.value, currentNode.value) >= 0) {
+                                        l._ascending == false && l.Compare(item.value, currentNode.value) >= 0) {
                                         if currentNode.prev == nil {
                                                 item.next = currentNode
                                                 currentNode.prev = item
