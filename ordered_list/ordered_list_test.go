@@ -2,6 +2,7 @@ package main
 
 import (
 	"testing"
+	// "fmt"
 )
 
 
@@ -64,7 +65,6 @@ func TestOrdereListAscMethods(t *testing.T) {
 	if err2 == nil {
 		t.Errorf("Node not found, but error was not raised.")
 	}
-
 
 	testOL.Delete(5)
 	if testOL.head.value != 1 || testOL.tail.value != 15 || testOL.head.next.value != 9 {
@@ -186,6 +186,99 @@ func TestOrdereListDescMethods(t *testing.T) {
 	}
 	if testOL.Count() != 0 {
 		t.Errorf("Wrong list count, ne 0")
+	}
+
+}
+
+
+func TestDescOLDeletion(t *testing.T) {
+	var testOL OrderedList[int]
+	testOL._ascending = false
+
+
+	testOL.Add(128)
+	testOL.Add(256)
+	testOL.Add(512)
+
+	if testOL.head.value != 512 || testOL.head.next.value != 256 || testOL.tail.value != 128 {
+		t.Errorf("Something went wrong when adding in Asc ordered list, ne [512 256 128]")
+	}
+	// Delete non existin element
+
+	testOL.Delete(777)
+
+	if testOL.head.value != 512 || testOL.head.next.value != 256 || testOL.tail.value != 128 {
+		t.Errorf("Something went wrong deleting non existing element from list, ne [512 256 128] after deletion")
+	}
+
+	// Delete existing element, lowest value in tail
+	testOL.Delete(128)
+
+	if testOL.head.value != 512 || testOL.tail.value != 256 {
+		t.Errorf("Something went wrong deleting existing lowest element from list, ne [256 512] after deletion")
+	}
+
+	// Delete existing element, max value from head
+
+	testOL.Delete(512)
+
+	if testOL.head.value != 256 || testOL.tail.value != 256 {
+		t.Errorf("Something went wrong deleting existing max element from list, ne [256] after deletion")
+	}
+
+
+	// Delete last element
+
+	testOL.Delete(256)
+
+	if testOL.head != nil || testOL.tail != nil {
+		t.Errorf("Something went wrong deleting last element from list, ne [] after deletion")
+	}
+
+}
+
+func TestAscOLDeletion(t *testing.T) {
+	var testOL OrderedList[int]
+	testOL._ascending = true
+
+
+	testOL.Add(128)
+	testOL.Add(256)
+	testOL.Add(512)
+
+	if testOL.head.value != 128 || testOL.head.next.value != 256 || testOL.tail.value != 512 {
+		t.Errorf("Something went wrong when adding in Asc ordered list, ne [128 256 512]")
+	}
+	// Delete non existin element
+
+	testOL.Delete(777)
+
+	if testOL.head.value != 128 || testOL.head.next.value != 256 || testOL.tail.value != 512 {
+		t.Errorf("Something went wrong deleting non existing element from list, ne [128 256 512] after deletion")
+	}
+
+	// Delete existing element, lowest value in head
+	testOL.Delete(128)
+
+	if testOL.head.value != 256 || testOL.tail.value != 512 {
+		t.Errorf("Something went wrong deleting existing lowest element from list, ne [256 512] after deletion")
+	}
+
+	// Delete existing element, max value from tail
+
+	testOL.Delete(512)
+
+	if testOL.head.value != 256 || testOL.tail.value != 256 {
+		t.Errorf("Something went wrong deleting existing max element from list, ne [256] after deletion")
+	}
+
+
+	// Delete last element
+
+	testOL.Delete(256)
+
+	if testOL.head != nil || testOL.tail != nil {
+		t.Errorf("Something went wrong deleting last element from list, ne [] after deletion")
 	}
 
 }

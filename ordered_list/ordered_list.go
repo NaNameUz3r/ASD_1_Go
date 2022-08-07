@@ -2,7 +2,7 @@ package main
 
 import (
         "constraints"
-	"os"
+	// "os"
         "fmt"
 )
 
@@ -30,6 +30,21 @@ func (l *OrderedList[T]) Count() int {
                 currentNode = currentNode.next
         }
         return nodeCounter
+}
+
+func (l *OrderedList[T]) GetListVals() []T {
+        var values []T
+        currentNode := l.head
+
+        for {
+                if currentNode == nil {
+                        break
+                }
+                values = append(values, currentNode.value)
+                currentNode = currentNode.next
+        }
+
+        return values
 }
 
 func (l *OrderedList[T]) Add(item T) {
