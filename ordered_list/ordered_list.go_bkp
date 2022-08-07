@@ -2,19 +2,19 @@ package main
 
 import (
         "constraints"
-	"os"
         "fmt"
+        // "os"
 )
 
 type Node[T constraints.Ordered] struct {
-	prev  *Node[T]
-	next  *Node[T]
-	value T
+        prev  *Node[T]
+        next  *Node[T]
+        value T
 }
 
 type OrderedList[T constraints.Ordered] struct {
-	head *Node[T]
-	tail *Node[T]
+        head       *Node[T]
+        tail       *Node[T]
         _ascending bool
 }
 
@@ -32,34 +32,46 @@ func (l *OrderedList[T]) Count() int {
         return nodeCounter
 }
 
-func (l *OrderedList[T]) Add(item T) {
+func (l *OrderedList[T]) GetListVals() []T {
+        var values []T
+        currentNode := l.head
+
+        for {
+                if currentNode == nil {
+                        break
+                }
+                values = append(values, currentNode.value)
+                currentNode = currentNode.next
+        }
+
+        return values
+}
+
+func (l *OrderedList[T]) Add(item *Node[T]) {
         currentNode := l.head
         if currentNode == nil {
-                var newHeadTail Node[T]
-                newHeadTail.value = item
-                l.head = &newHeadTail
-                l.tail = &newHeadTail
+                l.head = item
+                l.tail = item
         } else {
-                var newNode Node[T]
-                newNode.value = item
+
                 for {
                         if currentNode != nil {
-                                if (l._ascending == true && l.Compare(newNode.value, currentNode.value) <= 0) || (l._ascending == false && l.Compare(newNode.value, currentNode.value) >= 0) {
+                                if (l._ascending == true && l.Compare(item.value, currentNode.value) <= 0) || (l._ascending == false && l.Compare(item.value, currentNode.value) >= 0) {
                                         if currentNode.prev == nil {
-                                                newNode.next = currentNode
-                                                currentNode.prev = &newNode
-                                                l.head = &newNode
+                                                item.next = currentNode
+                                                currentNode.prev = item
+                                                l.head = item
                                         } else if currentNode.prev != nil {
-                                                currentNode.prev.next = &newNode
-                                                newNode.prev = currentNode.prev
-                                                newNode.next = currentNode
-                                                currentNode.prev = &newNode
+                                                currentNode.prev.next = item
+                                                item.prev = currentNode.prev
+                                                item.next = currentNode
+                                                currentNode.prev = item
                                         }
                                         break
                                 } else if currentNode.next == nil {
-                                        currentNode.next = &newNode
-                                        newNode.prev = currentNode
-                                        l.tail = &newNode
+                                        currentNode.next = item
+                                        item.prev = currentNode
+                                        l.tail = item
                                         break
                                 }
                         }
@@ -69,7 +81,7 @@ func (l *OrderedList[T]) Add(item T) {
         }
 }
 
-func (l *OrderedList[T]) Find(n T) (Node[T],error) {
+func (l *OrderedList[T]) Find(n T) (Node[T], error) {
         var err error
 
         if l.head == nil {
@@ -95,7 +107,6 @@ func (l *OrderedList[T]) Find(n T) (Node[T],error) {
                 currentNode = currentNode.next
         }
 }
-
 
 func (l *OrderedList[T]) Delete(n T) {
         currentNode := l.head
@@ -137,11 +148,11 @@ func (l *OrderedList[T]) Clear(asc bool) {
 }
 
 func (l *OrderedList[T]) Compare(v1 T, v2 T) int {
-       if v1 < v2 {
-               return -1
-       }
-       if v1 > v2 {
-               return +1
-       }
-       return 0
+        if v1 < v2 {
+                return -1
+        }
+        if v1 > v2 {
+                return +1
+        }
+        return 0
 }

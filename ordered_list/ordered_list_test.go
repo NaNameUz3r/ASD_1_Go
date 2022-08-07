@@ -10,21 +10,17 @@ func TestOrdereListAscMethods(t *testing.T) {
 	testOL._ascending = true
 
 
-	var node1 Node[int]
-	node1.value = 1
 
-	testOL.Add(&node1)
+	testOL.Add(1)
 
-	if testOL.head != &node1 || testOL.tail != &node1 {
+	if testOL.head.value != 1 || testOL.tail.value != 1 {
 		t.Errorf("Wrong first node addition, something wrong with head or tail pointers")
 	}
 
 	if testOL.Count() != 1 {
 		t.Errorf("Wrong list count, ne 1")
 	}
-	var node2 Node[int]
-	node2.value = 9
-	testOL.Add(&node2)
+	testOL.Add(9)
 
 	if testOL.head.value != 1 || testOL.tail.value != 9 {
 		t.Errorf("List elements ordered incorrectly, ne [1 9]")
@@ -34,9 +30,7 @@ func TestOrdereListAscMethods(t *testing.T) {
 		t.Errorf("Wrong list count, ne 2")
 	}
 
-	var node3 Node[int]
-	node3.value = 5
-	testOL.Add(&node3)
+	testOL.Add(5)
 
 	if testOL.head.value != 1 || testOL.tail.value != 9 || testOL.head.next.value != 5 {
 		t.Errorf("List asc elements ordered incorrectly, ne [1 5 9]")
@@ -47,9 +41,7 @@ func TestOrdereListAscMethods(t *testing.T) {
 	}
 
 
-	var node4 Node[int]
-	node4.value = 15
-	testOL.Add(&node4)
+	testOL.Add(15)
 
 	if testOL.head.value != 1 || testOL.tail.prev.value != 9 || testOL.head.next.value != 5 || testOL.tail.value != 15 {
 		t.Errorf("List asc elements ordered incorrectly, ne [1 5 9 15]")
@@ -61,7 +53,7 @@ func TestOrdereListAscMethods(t *testing.T) {
 
 	find1, err1 := testOL.Find(1)
 
-	if node1 != find1 {
+	if find1.value != 1 || find1 != *testOL.head {
 		t.Errorf("Wrong find method working, finded node should ve eq to head")
 	}
 	if err1 != nil {
@@ -111,21 +103,16 @@ func TestOrdereListDescMethods(t *testing.T) {
 	testOL._ascending = false
 
 
-	var node1 Node[int]
-	node1.value = 1
+	testOL.Add(1)
 
-	testOL.Add(&node1)
-
-	if testOL.head != &node1 || testOL.tail != &node1 {
+	if testOL.head.value != 1 || testOL.tail.value != 1 {
 		t.Errorf("Wrong first node addition, something wrong with head or tail pointers")
 	}
 
 	if testOL.Count() != 1 {
 		t.Errorf("Wrong list count, ne 1")
 	}
-	var node2 Node[int]
-	node2.value = 9
-	testOL.Add(&node2)
+	testOL.Add(9)
 
 	if testOL.head.value != 9 || testOL.tail.value != 1 {
 		t.Errorf("List elements ordered incorrectly, ne [9 1]")
@@ -135,9 +122,7 @@ func TestOrdereListDescMethods(t *testing.T) {
 		t.Errorf("Wrong list count, ne 2")
 	}
 
-	var node3 Node[int]
-	node3.value = 5
-	testOL.Add(&node3)
+	testOL.Add(5)
 
 	if testOL.head.value != 9 || testOL.tail.value != 1 || testOL.head.next.value != 5 {
 		t.Errorf("List asc elements ordered incorrectly, ne [9 5 1]")
@@ -148,9 +133,7 @@ func TestOrdereListDescMethods(t *testing.T) {
 	}
 
 
-	var node4 Node[int]
-	node4.value = 15
-	testOL.Add(&node4)
+	testOL.Add(15)
 
 	if testOL.head.value != 15 || testOL.tail.prev.value != 5 || testOL.head.next.value != 9 || testOL.tail.value != 1 {
 		t.Errorf("List asc elements ordered incorrectly, ne [15 9 5 1]")
@@ -162,7 +145,7 @@ func TestOrdereListDescMethods(t *testing.T) {
 
 	find1, err1 := testOL.Find(1)
 
-	if node1 != find1 {
+	if &find1 != testOL.tail && find1.value != 1 {
 		t.Errorf("Wrong find method working, finded node should ve eq to head")
 	}
 	if err1 != nil {
