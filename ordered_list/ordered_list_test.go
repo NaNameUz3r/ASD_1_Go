@@ -281,4 +281,17 @@ func TestAscOLDeletion(t *testing.T) {
 		t.Errorf("Something went wrong deleting last element from list, ne [] after deletion")
 	}
 
+	// Ok Genious how about add this one damn breake and do not delete ALL nodes with same value? :D
+
+	testOL.Add(1)
+	testOL.Add(2)
+	testOL.Add(2)
+	testOL.Add(2)
+	testOL.Add(3)
+
+	testOL.Delete(2)
+
+	if testOL.head.next.value != 2 || testOL.tail.prev.value != 2 {
+		t.Errorf("Add this f#cking breake allready, monkey!")
+	}
 }

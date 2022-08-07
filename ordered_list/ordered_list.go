@@ -140,6 +140,7 @@ func (l *OrderedList[T]) Delete(n T) {
                 if currentNode.value == n {
                         currentNode.prev.next = currentNode.next
                         currentNode.next.prev = currentNode.prev
+                        break
                 }
 
                 currentNode = currentNode.next
