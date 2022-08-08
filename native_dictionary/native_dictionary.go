@@ -3,7 +3,7 @@ package main
 import (
 		"fmt"
 		"os"
-        "strconv"
+		"strconv"
 )
 
 type NativeDictionary[T any] struct {
