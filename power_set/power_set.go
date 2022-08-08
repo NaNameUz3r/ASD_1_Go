@@ -48,7 +48,11 @@ func (ps *PowerSet[T]) Put(value T) {
 func (ps *PowerSet[T]) Get(value T) (bool) {
 		var hashIdx = ps.HashFun(value)
 		var zeroType T
-		return ps.slots[hashIdx] == zeroType
+		if ps.slots[hashIdx] == zeroType {
+			return true
+		} else {
+			return false
+		}
 }
 
 func (ps *PowerSet[T]) Remove(value T) (bool) {
