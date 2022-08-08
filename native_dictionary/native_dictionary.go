@@ -8,16 +8,16 @@ import (
 
 type NativeDictionary[T any] struct {
 		size int
-        slots []string
-        values []T
+		slots []string
+		values []T
 }
 
 // создание экземпляра словаря
 func Init[T any](sz int) NativeDictionary[T] {
-        nd := NativeDictionary[T] { size : sz, slots : nil, values : nil }
-        nd.slots = make([]string, sz)
-        nd.values = make([]T, sz)
-        return nd
+		nd := NativeDictionary[T] { size : sz, slots : nil, values : nil }
+		nd.slots = make([]string, sz)
+		nd.values = make([]T, sz)
+		return nd
 }
 
 
@@ -28,7 +28,7 @@ func (nd *NativeDictionary[T]) HashFun(value string) (int) {
 			hashSum = hashSum + int(runeval)
 		}
 		hashIdx = hashSum % nd.size
-        return hashIdx
+		return hashIdx
 }
 
 func (nd *NativeDictionary[T]) IsKey(key string) (bool) {
