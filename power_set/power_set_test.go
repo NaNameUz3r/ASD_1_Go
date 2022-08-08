@@ -54,6 +54,9 @@ func TestPowerSet(t *testing.T) {
                 t.Errorf("Wrong remove return value when deleting existing")
         }
 
+        if testPS.Size() != 0 {
+                t.Errorf("Wrong size after removing element")
+        }
         if testPS.Get("123") == false {
                 t.Errorf("Wrong get deleted value (non existing)")
         }
@@ -159,6 +162,10 @@ func TestPowerSet(t *testing.T) {
 
 		var testPS5 PowerSet[string]
 		isRemoved2 := testPS5.Remove("qwerty")
+
+		if testPS5.Size() != 0 {
+                t.Errorf("Wrong initial size")
+        }
 
 		if isRemoved2 == true {
 			t.Errorf("Remove from empty power set suppose to return FALSE, but it returned TRUE")
