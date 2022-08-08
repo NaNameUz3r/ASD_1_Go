@@ -37,7 +37,6 @@ func TestPowerSet(t *testing.T) {
 
         // Test Get
 
-
         if testPS.Get("123") == true {
                 t.Errorf("Wrong get existing")
         }
@@ -158,16 +157,16 @@ func TestPowerSet(t *testing.T) {
                 t.Errorf("Wont union working")
         }
 
-		// Test Remove Empty
+        // Test Remove Empty
 
-		var testPS5 PowerSet[string]
-		isRemoved2 := testPS5.Remove("qwerty")
+        var testPS5 PowerSet[string]
+        isRemoved2 := testPS5.Remove("qwerty")
 
-		if testPS5.Size() != 0 {
+        if testPS5.Size() != 0 {
                 t.Errorf("Wrong initial size")
         }
 
-		if isRemoved2 == true {
-			t.Errorf("Remove from empty power set suppose to return FALSE, but it returned TRUE")
-		}
+        if isRemoved2 == true {
+                t.Errorf("Remove from empty power set suppose to return FALSE, but it returned TRUE")
+        }
 }
