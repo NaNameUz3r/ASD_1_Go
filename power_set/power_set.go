@@ -3,8 +3,8 @@ package main
 import (
 		"constraints"
 		"fmt"
-		"os"
-		"strconv"
+		// "os"
+		// "strconv"
 )
 
 var CONSTANT_SIZE = 20000
@@ -13,6 +13,7 @@ var CONSTANT_STEP = 3
 type PowerSet[T constraints.Ordered] struct {
 		slots []T
 		itemsCounter int
+		usedIndexes []int
 }
 
 func (ps *PowerSet[T]) HashFun(value T) int {
@@ -73,6 +74,7 @@ func (ps *PowerSet[T]) Put(value T) {
 
 		if slotIdx > -1 {
 			ps.itemsCounter++
+			ps.usedIndexes = append(ps.usedIndexes, slotIdx)
 			ps.slots[slotIdx] = value
 		}
 }
@@ -118,6 +120,15 @@ func (ps *PowerSet[T]) Remove(value T) (bool) {
 		var zeroType T
 
 		if findIdx > -1 {
+
+			for i, value := range ps.usedIndexes {
+				if value == findIdx {
+					ps.usedIndexes[i] = ps.usedIndexes[len(ps.usedIndexes) - 1]
+					ps.usedIndexes[len(ps.usedIndexes) - 1] = -1
+					ps.usedIndexes = ps.usedIndexes[:len(ps.usedIndexes)-1]
+				}
+			}
+
 			ps.itemsCounter--
 			ps.slots[findIdx] = zeroType
 			return true
@@ -129,15 +140,17 @@ func (ps *PowerSet[T]) Intersection(set2 PowerSet[T]) (PowerSet[T]) {
 		var resultPs PowerSet[T]
 
 	 	if ps.Size() >= set2.Size() {
-			for _, item := range set2.slots {
-				if !ps.Get(item) {
-					resultPs.Put(item)
+			for i := 0; i < set2.Size(); i++ {
+				set2Value := (set2.slots[set2.usedIndexes[i]])
+				if ps.Get(set2Value) {
+					resultPs.Put(set2Value)
 				}
 			}
 		} else if set2.Size() >= ps.Size() {
-			for _, item := range ps.slots {
-				if !set2.Get(item) {
-					resultPs.Put(item)
+			for i := 0; i < ps.Size(); i++ {
+				psValue := ps.slots[ps.usedIndexes[i]]
+				if set2.Get(psValue) {
+					resultPs.Put(psValue)
 				}
 			}
 		}
@@ -148,12 +161,12 @@ func (ps *PowerSet[T]) Union(set2 PowerSet[T]) (PowerSet[T]) {
 		// объединение текущего множества и set2
 		var resultPs PowerSet[T]
 
-		for _, item := range ps.slots {
-			resultPs.Put(item)
+		for _, item := range ps.usedIndexes {
+			resultPs.Put(ps.slots[item])
 		}
 
-		for _, item := range set2.slots {
-			resultPs.Put(item)
+		for _, item := range set2.usedIndexes {
+			resultPs.Put(set2.slots[item])
 		}
 		return resultPs
 }
@@ -161,9 +174,10 @@ func (ps *PowerSet[T]) Union(set2 PowerSet[T]) (PowerSet[T]) {
 func (ps *PowerSet[T]) Difference(set2 PowerSet[T]) (PowerSet[T]) {
 		var resultPs PowerSet[T]
 
-		for _, item := range ps.slots {
-			if set2.Get(item) == false {
-				resultPs.Put(item)
+		for _, item := range ps.usedIndexes {
+			checkValue := ps.slots[item]
+			if set2.Get(checkValue) == false {
+				resultPs.Put(checkValue)
 			}
 		}
 
@@ -172,8 +186,8 @@ func (ps *PowerSet[T]) Difference(set2 PowerSet[T]) (PowerSet[T]) {
 
 func (ps *PowerSet[T]) IsSubset(set2 PowerSet[T]) (bool) {
 
-		for _, item := range set2.slots {
-			if ps.Get(item) == false {
+		for _, item := range set2.usedIndexes {
+			if ps.Get(set2.slots[item]) == false {
 				return false
 			}
 		}

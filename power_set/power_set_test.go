@@ -9,7 +9,6 @@ import (
 func TestPowerSet(t *testing.T) {
 
         var testPS PowerSet[string]
-
         // test HashFun
 
         val1 := testPS.HashFun("friend")
@@ -87,25 +86,36 @@ func TestPowerSet(t *testing.T) {
 
         intersect1 := testPS.Intersection(testPS2)
 
-        if intersect1.Get("hello") == true {
+        // for _, item := range intersect1.slots {
+        //         if item != "" {
+        //                 fmt.Println(item)
+        //         }
+        // }
+
+        // fmt.Println(testPS2.usedIndexes)
+
+        // for _, item := range testPS2.usedIndexes {
+        //         fmt.Println(testPS2.slots[item])
+        // }
+
+        if intersect1.Get("hello") != true {
                 t.Errorf("Wrong intersection bigger with smaller")
         }
-        if intersect1.Get("a slippery slope") == true {
+        if intersect1.Get("a slippery slope") != true {
                 t.Errorf("Wrong intersection bigger with smaller")
         }
-        if intersect1.Get("in my head") == true {
+        if intersect1.Get("in my head") != true {
                 t.Errorf("Wrong intersection bigger with smaller")
         }
 
         intersect2 := testPS2.Intersection(testPS)
-
-        if intersect2.Get("hello") == true {
+        if intersect2.Get("hello") != true {
                 t.Errorf("Wrong intersection bigger with smaller")
         }
-        if intersect2.Get("a slippery slope") == true {
+        if intersect2.Get("a slippery slope") != true {
                 t.Errorf("Wrong intersection bigger with smaller")
         }
-        if intersect2.Get("in my head") == true {
+        if intersect2.Get("in my head") != true {
                 t.Errorf("Wrong intersection bigger with smaller")
         }
 
@@ -127,11 +137,17 @@ func TestPowerSet(t *testing.T) {
 
         union1 := testPS3.Union(testPS4)
 
+        // fmt.Println(union1.Size())
         // for _, item := range union1.slots {
-        //         if union1.Get(item) {
-        //                 fmt.Println(item)
+        //         itemIdx := union1.Find(item)
+        //         if itemIdx > -1 && itemIdx != 0 {
+        //                 fmt.Println(union1.slots[itemIdx], itemIdx)
         //         }
         // }
+
+        if union1.Size() != 10 {
+                t.Errorf("Wrong size of power set union, ne 10")
+        }
 
         if union1.Get("hello") != true {
                 t.Errorf("Wont union working")
@@ -210,14 +226,52 @@ func TestSizePS(t *testing.T) {
         // And Remove...
 
         testPS7.Remove("qwerty")
-        // for _, item := range testPS7.slots {
-        //         itemIdx := testPS7.Find(item)
-        //         if itemIdx > -1 && itemIdx != 0 {
-        //                 fmt.Println(testPS7.slots[itemIdx], itemIdx)
-        //         }
-        // }
 
         if testPS7.Size() != 1 {
                 t.Errorf("Wrong size after deletion one element, ne 1")
+        }
+}
+
+
+func TestDifference(t *testing.T) {
+        var testPS1 PowerSet[string]
+        testPS1.Put("hello")
+        testPS1.Put("friend")
+        testPS1.Put("hello friend?")
+        testPS1.Put("That's lame")
+        testPS1.Put("Maybe I should")
+
+        var testPS2 PowerSet[string]
+        testPS2.Put("hello")
+        testPS2.Put("friend")
+        testPS2.Put("give you a name")
+        testPS2.Put("But that's")
+        testPS2.Put("a slippery slope")
+        testPS2.Put("You are only")
+        testPS2.Put("in my head")
+
+        differ1 := testPS1.Difference(testPS2)
+
+        // fmt.Println(differ1.usedIndexes, differ1.Size())
+        // fmt.Println(differ1.Size())
+        // for _, item := range differ1.slots {
+        //         itemIdx := differ1.Find(item)
+        //         if itemIdx > -1 && itemIdx != 0 {
+        //                 fmt.Println(differ1.slots[itemIdx], itemIdx)
+        //         }
+        // }
+
+        if differ1.Size() != 3 {
+                t.Errorf("Wrong size of differ returned power set, ne 3")
+        }
+
+        if differ1.Get("hello friend?") != true {
+                t.Errorf("Wont union working")
+        }
+        if differ1.Get("That's lame") != true {
+                t.Errorf("Wont union working")
+        }
+        if differ1.Get("Maybe I should") != true {
+                t.Errorf("Wont union working")
         }
 }
