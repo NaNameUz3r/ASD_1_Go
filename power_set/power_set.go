@@ -3,11 +3,12 @@ package main
 import (
 		"constraints"
 		"fmt"
-		"os"
-		"strconv"
+		// "os"
+		// "strconv"
 )
 
 var CONSTANT_SIZE = 20000
+var CONSTANT_STEP = 3
 
 type PowerSet[T constraints.Ordered] struct {
 		slots []T
@@ -30,41 +31,95 @@ func (ps *PowerSet[T]) HashFun(value T) int {
         return hashIdx
 }
 
+func (ps *PowerSet[T]) SeekSlot(value T) int {
+		var hashIdx int
+		hashIdx = ps.HashFun(value)
+		var zeroType T
+
+		if ps.slots[hashIdx] == zeroType {
+			return hashIdx
+		}
+
+		seekIdx := 0
+
+		for {
+			if seekIdx >= CONSTANT_SIZE {
+				break
+			}
+
+			hashIdx = hashIdx + CONSTANT_STEP
+
+			if hashIdx >= CONSTANT_SIZE {
+				hashIdx = hashIdx - CONSTANT_SIZE
+			}
+
+			if ps.slots[hashIdx] == zeroType {
+				return hashIdx
+			} else {
+				seekIdx = seekIdx + 1
+			}
+		}
+		hashIdx = -1
+		return hashIdx
+}
+
 func (ps *PowerSet[T]) Size() (int) {
 		return ps.itemsCounter
 }
 
 func (ps *PowerSet[T]) Put(value T) {
-		var hashIdx int
-		var zeroType T
-		hashIdx = ps.HashFun(value)
-		if ps.slots[hashIdx] == zeroType {
-			ps.itemsCounter++
-			ps.slots[hashIdx] = value
-		}
+		var slotIdx int
+		slotIdx = ps.SeekSlot(value)
 
+		if slotIdx > -1 {
+			ps.itemsCounter++
+			ps.slots[slotIdx] = value
+		}
 }
 
+func (ps *PowerSet[T]) Find(value T) int {
+		var checkHashIdx int
+		checkHashIdx = ps.HashFun(value)
+
+		if ps.slots[checkHashIdx] == value {
+			return checkHashIdx
+		}
+
+		findIdx := 0
+
+		for {
+			if findIdx >= CONSTANT_SIZE {
+				break
+			}
+
+			checkHashIdx += CONSTANT_STEP
+			if checkHashIdx >= CONSTANT_SIZE {
+				checkHashIdx = checkHashIdx - CONSTANT_SIZE
+			}
+
+			if ps.slots[checkHashIdx] == value {
+				return checkHashIdx
+			} else {
+				findIdx = findIdx + 1
+			}
+		}
+
+		checkHashIdx = -1
+		return checkHashIdx
+}
+
+
 func (ps *PowerSet[T]) Get(value T) (bool) {
-		var hashIdx = ps.HashFun(value)
-		var zeroType T
-		if ps.Size() == 0 {
-			return false
-		}
-		if ps.slots[hashIdx] != zeroType {
-			return true
-		} else {
-			return false
-		}
+		return ps.Find(value) > -1
 }
 
 func (ps *PowerSet[T]) Remove(value T) (bool) {
-		var hashIdx = ps.HashFun(value)
+		var findIdx = ps.Find(value)
 		var zeroType T
 
-		if ps.slots[hashIdx] != zeroType {
+		if findIdx > -1 {
 			ps.itemsCounter--
-			ps.slots[hashIdx] = zeroType
+			ps.slots[findIdx] = zeroType
 			return true
 		}
 		return false

@@ -3,6 +3,7 @@ package main
 import (
         "testing"
         // "fmt"
+        // "reflect"
 )
 
 func TestPowerSet(t *testing.T) {
@@ -182,5 +183,41 @@ func TestGetFromEmptyPS(t *testing.T) {
 
         if testPS6.Get("qwerty") != false {
                 t.Errorf("Wrong get non existing value from empty PowerSet, ne FALSE")
+        }
+}
+
+func TestSizePS(t *testing.T) {
+        var testPS7 PowerSet[string]
+
+        if testPS7.Size() != 0 {
+                t.Errorf("Wrong initial size ne 0")
+        }
+
+
+        testPS7.Put("qwerty")
+
+        if testPS7.Size() != 1 {
+                t.Errorf("Wrong size after put first element, ne 1")
+        }
+
+        testPS7.Put("ytrewq")
+
+
+        if testPS7.Size() != 2 {
+                t.Errorf("Wrong size after put seconf element, ne 2")
+        }
+
+        // And Remove...
+
+        testPS7.Remove("qwerty")
+        // for _, item := range testPS7.slots {
+        //         itemIdx := testPS7.Find(item)
+        //         if itemIdx > -1 && itemIdx != 0 {
+        //                 fmt.Println(testPS7.slots[itemIdx], itemIdx)
+        //         }
+        // }
+
+        if testPS7.Size() != 1 {
+                t.Errorf("Wrong size after deletion one element, ne 1")
         }
 }
