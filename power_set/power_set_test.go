@@ -37,11 +37,11 @@ func TestPowerSet(t *testing.T) {
 
         // Test Get
 
-        if testPS.Get("123") == true {
+        if testPS.Get("123") != true {
                 t.Errorf("Wrong get existing")
         }
 
-        if testPS.Get("OLOLO") == false {
+        if testPS.Get("OLOLO") != false {
                 t.Errorf("Wrong get non existing")
         }
 
@@ -56,7 +56,7 @@ func TestPowerSet(t *testing.T) {
         if testPS.Size() != 0 {
                 t.Errorf("Wrong size after removing element")
         }
-        if testPS.Get("123") == false {
+        if testPS.Get("123") != false {
                 t.Errorf("Wrong get deleted value (non existing)")
         }
 
@@ -126,34 +126,40 @@ func TestPowerSet(t *testing.T) {
 
         union1 := testPS3.Union(testPS4)
 
-        if union1.Get("hello") != false {
+        // for _, item := range union1.slots {
+        //         if union1.Get(item) {
+        //                 fmt.Println(item)
+        //         }
+        // }
+
+        if union1.Get("hello") != true {
                 t.Errorf("Wont union working")
         }
-        if union1.Get("friend") != false {
+        if union1.Get("friend") != true {
                 t.Errorf("Wont union working")
         }
-        if union1.Get("hello friend?") != false {
+        if union1.Get("hello friend?") != true {
                 t.Errorf("Wont union working")
         }
-        if union1.Get("That's lame") != false {
+        if union1.Get("That's lame") != true {
                 t.Errorf("Wont union working")
         }
-        if union1.Get("Maybe I should") != false {
+        if union1.Get("Maybe I should") != true {
                 t.Errorf("Wont union working")
         }
-        if union1.Get("give you a name") != false {
+        if union1.Get("give you a name") != true {
                 t.Errorf("Wont union working")
         }
-        if union1.Get("But that's") != false {
+        if union1.Get("But that's") != true {
                 t.Errorf("Wont union working")
         }
-        if union1.Get("a slippery slope") != false {
+        if union1.Get("a slippery slope") != true {
                 t.Errorf("Wont union working")
         }
-        if union1.Get("You are only") != false {
+        if union1.Get("You are only") != true {
                 t.Errorf("Wont union working")
         }
-        if union1.Get("in my head") != false {
+        if union1.Get("in my head") != true {
                 t.Errorf("Wont union working")
         }
 
@@ -168,5 +174,13 @@ func TestPowerSet(t *testing.T) {
 
         if isRemoved2 == true {
                 t.Errorf("Remove from empty power set suppose to return FALSE, but it returned TRUE")
+        }
+}
+
+func TestGetFromEmptyPS(t *testing.T) {
+        var testPS6 PowerSet[string]
+
+        if testPS6.Get("qwerty") != false {
+                t.Errorf("Wrong get non existing value from empty PowerSet, ne FALSE")
         }
 }
