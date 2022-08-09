@@ -3,8 +3,8 @@ package main
 import (
 		"constraints"
 		"fmt"
-		// "os"
-		// "strconv"
+		"os"
+		"strconv"
 )
 
 var CONSTANT_SIZE = 20000
