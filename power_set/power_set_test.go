@@ -315,5 +315,5 @@ func TestUnion(t *testing.T) {
                 t.Errorf("Wrong union size")
         }
 
-        union1.showMeEvetything()
+        // union1.showMeEvetything()
 }
