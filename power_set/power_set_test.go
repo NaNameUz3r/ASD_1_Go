@@ -275,3 +275,45 @@ func TestDifference(t *testing.T) {
                 t.Errorf("Wont union working")
         }
 }
+
+func TestUnionEmpty(t *testing.T) {
+        var testPS1 PowerSet[string]
+        testPS1.Put("hello")
+        testPS1.Put("friend")
+        testPS1.Put("hello friend?")
+        testPS1.Put("That's lame")
+        testPS1.Put("Maybe I should")
+
+        var testPS2 PowerSet[string]
+
+        union := testPS1.Union(testPS2)
+
+        if union.Size() != 5 {
+                t.Errorf("wrong union size")
+        }
+}
+
+func TestUnion(t *testing.T) {
+        var testPS3 PowerSet[string]
+        testPS3.Put("hello")
+        testPS3.Put("friend")
+        testPS3.Put("hello friend?")
+        testPS3.Put("That's lame")
+        testPS3.Put("Maybe I should")
+
+        var testPS4 PowerSet[string]
+        testPS4.Put("hello")
+        testPS4.Put("give you a name")
+        testPS4.Put("But that's")
+        testPS4.Put("a slippery slope")
+        testPS4.Put("You are only")
+        testPS4.Put("in my head")
+
+        union1 := testPS3.Union(testPS4)
+
+        if union1.Size() != 10 {
+                t.Errorf("Wrong union size")
+        }
+
+        union1.showMeEvetything()
+}

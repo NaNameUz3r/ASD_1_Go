@@ -3,8 +3,8 @@ package main
 import (
 		"constraints"
 		"fmt"
-		"os"
-		"strconv"
+		// "os"
+		// "strconv"
 )
 
 var CONSTANT_SIZE = 20000
@@ -72,7 +72,7 @@ func (ps *PowerSet[T]) Put(value T) {
 		var slotIdx int
 		slotIdx = ps.SeekSlot(value)
 
-		if slotIdx > -1 {
+		if !ps.Get(value) {
 			ps.itemsCounter++
 			ps.usedIndexes = append(ps.usedIndexes, slotIdx)
 			ps.slots[slotIdx] = value
@@ -192,4 +192,19 @@ func (ps *PowerSet[T]) IsSubset(set2 PowerSet[T]) (bool) {
 			}
 		}
 		return true
+}
+
+
+func (ps *PowerSet[T]) showMeEvetything() {
+        fmt.Println("SIZE:", ps.Size())
+		fmt.Println("===============================")
+        for _, item := range ps.slots {
+                itemIdx := ps.Find(item)
+                if itemIdx > -1 && itemIdx != 0 {
+                        fmt.Println(ps.slots[itemIdx], itemIdx)
+                }
+        }
+		fmt.Println("===============================")
+		fmt.Println("Used Indexes:")
+		fmt.Println(ps.usedIndexes)
 }
