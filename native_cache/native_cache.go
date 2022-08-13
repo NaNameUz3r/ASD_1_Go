@@ -2,6 +2,7 @@ package main
 
 import (
         "fmt"
+		"os"
 )
 
 type NativeCache[T any] struct {
@@ -120,6 +121,10 @@ func (nc *NativeCache[T]) Get(key string) (T, error) {
         err = fmt.Errorf("no such key in cache")
         return zeroType, err
 
+}
+
+func (nc *NativeCache[T]) IsKey(key string) bool {
+	return nc.getCacheIdx(key) > -1
 }
 
 func (nc *NativeCache[T]) getCacheIdx(key string) int {
